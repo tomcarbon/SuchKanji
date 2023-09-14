@@ -1,0 +1,983 @@
+Directory Tree:
+
+  |-src
+  |  |-components
+  |  |-css
+  |  |-images
+
+Concatenated Output:
+
+/* ChatGPT Ref: ./src/App.css */
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* ChatGPT Ref: ./src/App.js */
+import React, { useState } from 'react';
+import { Splash, GameOver, KanjiGame } from './components';
+
+import './App.css';
+function App() {
+  const [showSplash, setShowSplash] = useState(true);
+
+  const handleContinue = () => {
+    setShowSplash(false);
+  };
+
+  return (
+    <div className="App">
+      {showSplash ? (
+        <Splash onContinue={handleContinue} />
+      ) : (
+        <KanjiGame onContinue={handleContinue} />
+      )}
+    </div>
+  );
+}
+
+export default App;
+/* ChatGPT Ref: ./src/App.test.js */
+import { render, screen } from '@testing-library/react';
+import App from './App';
+
+test('renders learn react link', () => {
+  render(<App />);
+  const linkElement = screen.getByText(/learn react/i);
+  expect(linkElement).toBeInTheDocument();
+});
+/* ChatGPT Ref: ./src/components/AboutScreen.js */
+import React from 'react';
+import '../css/AboutScreen.css';
+
+const AboutScreen = () => {
+  return (
+    <div className="about-screen">
+      <h1>About Kanji Learning App</h1>
+      <p>
+        Kanji Learning App is an educational game designed to help you master the Kanji characters representing numbers from one to ten in the Japanese language. Kanji characters are an essential part of written Japanese and are used to represent words, concepts, and numbers. This app provides an interactive and enjoyable way to learn and recognize these characters.
+      </p>
+    </div>
+  );
+};
+
+export default AboutScreen;
+/* ChatGPT Ref: ./src/components/GameOver.js */
+
+import React from 'react';
+import '../css/GameOver.css';
+
+const GameOver = ({ score, startNewGame }) => {
+  const feedbackMessages = [
+    "蛙",
+    "猿",
+    "イルカ",
+    "柴犬!",
+  ];
+
+  let feedbackMessage = feedbackMessages[0];
+
+  if (score >= 3) {
+    feedbackMessage = feedbackMessages[1];
+  }
+  if (score >= 6) {
+    feedbackMessage = feedbackMessages[2];
+  }
+  if (score > 9) {
+    feedbackMessage = feedbackMessages[3];
+  }
+
+  return (
+    <div className="game-over-container">
+      <h1>Game Over</h1>
+      <h2 className="score-message">
+        Score: {score}/10 
+      </h2>
+      <br/>
+      <h1>
+        <span className="score-feedback">{feedbackMessage}</span>
+      </h1>
+      <button className="new-game-button" onClick={startNewGame}>
+        Play Again
+      </button>
+    </div>
+  );
+};
+
+export default GameOver;
+/* ChatGPT Ref: ./src/components/HistoryScreen.js */
+import React from 'react';
+import '../css/HistoryScreen.css'; // Import the CSS file for HistoryScreen
+
+const HistoryScreen = () => {
+  // Retrieve the game history from local storage
+  const gameHistory = JSON.parse(localStorage.getItem('gameHistory')) || [];
+
+  const handleResetHistory = () => {
+    localStorage.removeItem('gameHistory'); // Remove the game history from local storage
+    window.location.reload(); // Reload the page to reflect the changes
+  };
+
+  return (
+    <div>
+      <h1>HISTORY SCREEN</h1>
+      <ul className="game-history-list">
+        {gameHistory.map((game, index) => (
+          <li key={index}>
+            Game {index + 1}: {game.score}/10 (Date: {game.timestamp} Difficulty: {game.difficulty})
+          </li>
+        ))}
+      </ul>
+      {gameHistory.length > 0 && (
+        <button onClick={handleResetHistory}>Reset History</button>
+      )}
+    </div>
+  );
+};
+
+export default HistoryScreen;
+/* ChatGPT Ref: ./src/components/index.js */
+import Splash from './Splash';
+import GameOver from './GameOver';
+import KanjiGame from './KanjiGame';
+import AboutScreen from './AboutScreen';
+import HistoryScreen from './HistoryScreen';
+import NewGameScreen from './NewGameScreen';
+import SettingsScreen from './SettingsScreen';
+
+export {
+  Splash,
+  GameOver,
+  KanjiGame,
+  AboutScreen,
+  HistoryScreen,
+  NewGameScreen,
+  SettingsScreen,
+};
+/* ChatGPT Ref: ./src/components/KanjiAnswerButtons.js */
+import React, { useState, useEffect } from 'react';
+import '../css/KanjiAnswerButtons.css';
+
+const KanjiAnswerButtons = ({ options, onClick, onRoundChange }) => {
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
+  const [shuffledOptions, setShuffledOptions] = useState([]);
+
+  useEffect(() => {
+    setSelectedOption(null); // Reset selectedOption when the round changes
+    setShuffledOptions(shuffleOptions(options));
+  }, [options, onRoundChange]);
+
+  const handleOptionClick = (option, index) => {
+    setSelectedOption(option);
+    setSelectedAnswerIndex(index);
+    onClick(option);
+  };
+
+  return (
+    <div className="kanji-answer-buttons">
+      {shuffledOptions.map((option, index) => (
+        <button
+          key={index}
+          className={`kanji-answer-button ${
+            selectedAnswerIndex === index
+              ? option === options[0] // Check if the selected option is the correct one
+                ? 'correct'
+                : 'incorrect' // If not, apply the incorrect class
+              : ''
+          }`}
+          onClick={() => handleOptionClick(option, index)}
+        >
+          {option}
+        </button>
+      ))}
+    </div>
+  );
+};
+
+const shuffleOptions = (options) => {
+  // Shuffle the array of options using Fisher-Yates (Knuth) Shuffle algorithm
+  for (let i = options.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [options[i], options[j]] = [options[j], options[i]];
+  }
+  return options;
+};
+
+export default KanjiAnswerButtons;
+/* ChatGPT Ref: ./src/components/KanjiControls.js */
+import React from 'react';
+
+const KanjiControls = () => {
+  return (
+    <div className="container">
+      {/* Additional controls */}
+    </div>
+  );
+};
+
+export default KanjiControls;
+/* ChatGPT Ref: ./src/components/kanjiData.js */
+const kanjiData = [
+  { ktype: 'number', kanji: '一', translation: 'one' },
+  { ktype: 'number', kanji: '二', translation: 'two' },
+  { ktype: 'number', kanji: '三', translation: 'three' },
+  { ktype: 'number', kanji: '四', translation: 'four' },
+  { ktype: 'number', kanji: '五', translation: 'five' },
+  { ktype: 'number', kanji: '六', translation: 'six' },
+  { ktype: 'number', kanji: '七', translation: 'seven' },
+  { ktype: 'number', kanji: '八', translation: 'eight' },
+  { ktype: 'number', kanji: '九', translation: 'nine' },
+  { ktype: 'number', kanji: '十', translation: 'ten' },
+   { kanji: '食', translation: 'food', ktype: 'food' },
+  { kanji: '米', translation: 'rice', ktype: 'food' },
+  { kanji: '肉', translation: 'meat', ktype: 'food' },
+  { kanji: '野菜', translation: 'vegetables', ktype: 'food' },
+  { kanji: '果物', translation: 'fruits', ktype: 'food' },
+  { kanji: '牛乳', translation: 'milk', ktype: 'food' },
+  { kanji: '卵', translation: 'egg', ktype: 'food' },
+  { kanji: '麺', translation: 'noodles', ktype: 'food' },
+  { kanji: '味噌', translation: 'miso', ktype: 'food' },
+  { kanji: '豆腐', translation: 'tofu', ktype: 'food' },
+  { kanji: '煮物', translation: 'stewed dish', ktype: 'food' },
+  { kanji: '焼肉', translation: 'barbecue', ktype: 'food' },
+  { kanji: '寿司', translation: 'sushi', ktype: 'food' },
+  { kanji: '天ぷら', translation: 'tempura', ktype: 'food' },
+  { kanji: '鍋', translation: 'hot pot', ktype: 'food' },
+  { kanji: 'ラーメン', translation: 'ramen', ktype: 'food' },
+  { kanji: 'カレー', translation: 'curry', ktype: 'food' },
+  { kanji: 'おにぎり', translation: 'rice ball', ktype: 'food', },
+  { kanji: 'お茶', translation: 'tea', ktype: 'food' },
+  { kanji: 'コーヒー', translation: 'coffee', ktype: 'food' },
+  { kanji: 'ケーキ', translation: 'cake', ktype: 'food' },
+  { kanji: 'アイスクリーム', translation: 'ice cream', ktype: 'food' },
+  { kanji: 'チョコレート', translation: 'chocolate', ktype: 'food' },
+  { kanji: 'パン', translation: 'bread', ktype: 'food' },
+  { kanji: 'バター', translation: 'butter', ktype: 'food' },
+  { kanji: '酒', translation: 'sake', ktype: 'food' },
+  { kanji: 'ビール', translation: 'beer', ktype: 'food' },
+  { kanji: 'ワイン', translation: 'wine', ktype: 'food' },
+  { kanji: '焼き鳥', translation: 'grilled chicken skewers', ktype: 'food' },
+  { kanji: '天丼', translation: 'tempura rice bowl', ktype: 'food' },
+  { kanji: 'お好み焼き', translation: 'okonomiyaki', ktype: 'food' },
+  { kanji: '刺身', translation: 'sashimi', ktype: 'food' },
+  { kanji: 'おでん', translation: 'oden', ktype: 'food' },
+  { kanji: '焼きそば', translation: 'yakisoba', ktype: 'food' },
+  { kanji: '牛肉', translation: 'beef', ktype: 'food' },
+  { kanji: '豚肉', translation: 'pork', ktype: 'food' },
+  { kanji: '鶏肉', translation: 'chicken', ktype: 'food' },
+  { kanji: 'エビ', translation: 'shrimp', ktype: 'food' },
+  { kanji: 'カニ', translation: 'crab', ktype: 'food' },
+  { kanji: 'イカ', translation: 'squid', ktype: 'food' },
+  { kanji: '貝', translation: 'shellfish', ktype: 'food' },
+  { kanji: '野菜', translation: 'vegetables', ktype: 'food' },
+  { kanji: '果物', translation: 'fruit', ktype: 'food' }
+];
+
+
+export default kanjiData;
+/* ChatGPT Ref: ./src/components/KanjiDisplay.js */
+import React from 'react';
+import '../css/KanjiDisplay.css';
+import kanjiData from './kanjiData';
+
+const KanjiDisplay = ({ currentIndex, showTranslation }) => {
+  const kanji = kanjiData[currentIndex].kanji;
+  const translation = kanjiData[currentIndex].translation;
+
+  return (
+    <div className="kanji-display-container">
+      <div className="kanji-display-kanji">{kanji}</div>
+      {showTranslation && <div>{translation}</div>}
+    </div>
+  );
+};
+
+export default KanjiDisplay;
+/* ChatGPT Ref: ./src/components/KanjiGame.js */
+import React, { useState, useEffect } from 'react';
+import '../css/KanjiGame.css';
+import Menu from './Menu';
+import NewGameScreen from './NewGameScreen';
+import HistoryScreen from './HistoryScreen';
+import SettingsScreen from './SettingsScreen';
+import AboutScreen from './AboutScreen';
+import GameOver from './GameOver';
+import kanjiData from './kanjiData'; // Add this import statement
+
+
+const KanjiGame = ({ onContinue }) => {
+  const [activeScreen, setActiveScreen] = useState('');
+  const [gameOver, setGameOver] = useState(false);
+  const [score, setScore] = useState(0);
+  const [questionCount, setQuestionCount] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [showTranslation, setShowTranslation] = useState(false);
+  const [isAnswered, setIsAnswered] = useState(false);
+  const [optionsCount, setOptionsCount] = useState(3); // Initialize with default number of options
+  const [difficulty, setDifficulty] = useState(localStorage.getItem('difficulty') || 'easy');
+
+
+const handleNewGameClick = () => {
+  console.info("handleNewGameClick()")
+//  handleDifficultyChange(difficulty)
+  setScore(0);
+  setQuestionCount(0);
+  setGameOver(false);
+  createQuestion(kanjiData);
+};
+
+
+  // Function to handle difficulty change
+  const handleDifficultyChange = (difficulty) => {
+    switch (difficulty) {
+      case 'easy':
+        setOptionsCount(3);
+        break;
+      case 'medium':
+        setOptionsCount(5);
+        break;
+      case 'difficult':
+        setOptionsCount(20);
+        break;
+      default:
+        setOptionsCount(3);
+    }
+  };
+
+  useEffect(() => {
+    createQuestion(kanjiData);
+  }, [questionCount]);
+
+  const handleScreenChange = (screen) => {
+    console.info(`handlScreenChange: screen = ${screen}`)
+    setActiveScreen(screen);
+    setGameOver(false);
+  };
+
+  const resetGame = () => {
+    setScore(0);
+    setGameOver(false);
+  };
+
+  function shuffleOptions(options) {
+    // Shuffle the array of options using Fisher-Yates (Knuth) Shuffle algorithm
+    for (let i = options.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [options[i], options[j]] = [options[j], options[i]];
+    }
+    return options;
+  }
+
+  function randomIndex(dataLength) {
+    const correctIndex = Math.floor(Math.random() * dataLength); // Random index for correct button
+
+    let incorrectIndex1, incorrectIndex2;
+    do {
+      incorrectIndex1 = Math.floor(Math.random() * dataLength); // Random index for first incorrect button
+    } while (incorrectIndex1 === correctIndex);
+
+    do {
+      incorrectIndex2 = Math.floor(Math.random() * dataLength); // Random index for second incorrect button
+    } while (incorrectIndex2 === correctIndex || incorrectIndex2 === incorrectIndex1);
+
+    return { correctIndex, incorrectIndex1, incorrectIndex2 };
+  }
+
+  const [options, setOptions] = useState([]);
+
+  function createQuestion(data) {
+    const dataLength = data.length;
+    const { correctIndex, incorrectIndex1, incorrectIndex2 } = randomIndex(dataLength);
+    const options = [
+      data[correctIndex].translation,
+      data[incorrectIndex1].translation,
+      data[incorrectIndex2].translation,
+    ];
+
+    setCurrentIndex(correctIndex);
+    setShowTranslation(false);
+    setIsAnswered(false);
+    setOptions(shuffleOptions(options));
+  }
+
+  return (
+    <div className="kanjigame-container">
+      <Menu onScreenChange={handleScreenChange} setScore={setScore} />
+      <div className="kanjigame-content">
+        <div className="white-rectangle">
+          {gameOver ? (
+            <GameOver score={score} startNewGame={handleNewGameClick} />
+          ) : (
+            <>
+              {activeScreen === 'newGame' && (
+                <NewGameScreen
+                  onContinue={onContinue}
+                  onGameOver={() => setGameOver(true)}
+                  score={score}
+                  setScore={setScore}
+                  resetGame={resetGame}
+                  optionsCount={optionsCount} 
+                  selectedDifficulty={difficulty} 
+                  onNewGame={handleNewGameClick}
+                />
+              )}
+              {activeScreen === 'history' && <HistoryScreen onContinue={onContinue} />}
+              {activeScreen === 'settings' && <SettingsScreen onDifficultyChange={handleDifficultyChange} onContinue={onContinue} />}
+              {activeScreen === 'about' && <AboutScreen onContinue={onContinue} />}
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default KanjiGame;
+/* ChatGPT Ref: ./src/components/Menu.js */
+import React, { useState } from 'react';
+import logo from '../images/logo.png';
+import '../css/Menu.css';
+
+const Menu = ({ onScreenChange, setScore }) => {
+  const [rainbowMode, setRainbowMode] = useState(false);
+  const [logoMove, setLogoMove] = useState(false);
+
+  const handleAboutButtonClick = () => {
+    setRainbowMode(!rainbowMode);
+    onScreenChange('about');
+  };
+
+  const handleSettingsButtonClick = () => {
+    setLogoMove(!logoMove);
+    onScreenChange('settings');
+  };
+
+  const handleNewGameButtonClick = () => {
+    console.info(`Menu.js: handleNewGameButtonClick()`)
+    setScore(0)
+    onScreenChange('newGame');
+  };
+
+  const handleHistoryButtonClick = () => {
+    onScreenChange('history');
+  };
+
+  return (
+    <div className="menu-container">
+      <div
+        className={`logo-container ${logoMove ? 'logo-move' : ''}`}
+        onAnimationEnd={() => setLogoMove(false)}
+      >
+        <img src={logo} alt="Logo" className="logo" />
+      </div>
+      <h2 className={rainbowMode ? 'rainbow-title' : ''}>Such Kanji!</h2>
+      <button className="menu-button" onClick={handleNewGameButtonClick}>
+        New Game
+      </button>
+      <button className="menu-button" onClick={handleHistoryButtonClick}>
+        History
+      </button>
+      <button className="menu-button" onClick={handleSettingsButtonClick}>
+        Settings
+      </button>
+      <button className="menu-button" onClick={handleAboutButtonClick}>
+        About
+      </button>
+    </div>
+  );
+};
+
+export default Menu;
+/* ChatGPT Ref: ./src/components/NewGameScreen.js */
+import React, { useState, useEffect } from 'react';
+import KanjiDisplay from './KanjiDisplay';
+import KanjiAnswerButtons from './KanjiAnswerButtons';
+import KanjiControls from './KanjiControls';
+import kanjiData from './kanjiData';
+
+const TIMEOUT_TIME = 500
+
+const NewGameScreen = ({ selectedDifficulty, onContinue, onGameOver, score, setScore, resetGame, optionsCount, onNewGame }) => {
+
+  const [questionCount, setQuestionCount] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [showTranslation, setShowTranslation] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
+  const [gameLevel, setCurrentGameLevel] = useState(1);
+  const [options, setOptions] = useState([]);
+
+  useEffect(() => {
+    createQuestion(kanjiData);
+    console.info("NGS.js: useEffect -> createQuestion")
+  }, [questionCount]);
+
+function createQuestion(data) {
+  const dataLength = data.length;
+  const correctIndex = Math.floor(Math.random() * dataLength);
+  const incorrectIndices = [...Array(dataLength).keys()].filter((index) => index !== correctIndex);
+
+  // Calculate optionsCount based on selectedDifficulty
+  let optionsCount;
+  if (selectedDifficulty === 'easy') {
+    optionsCount = 3;
+  } else if (selectedDifficulty === 'medium') {
+    optionsCount = 5;
+  } else {
+    optionsCount = 20;
+  }
+
+  // Shuffle incorrect options
+  const shuffledIncorrectIndices = shuffleOptions(incorrectIndices).slice(0, optionsCount - 1);
+  const options = shuffleOptions([
+    data[correctIndex].translation,
+    ...shuffledIncorrectIndices.map((index) => data[index].translation),
+  ]);
+
+  setCurrentIndex(correctIndex);
+  setShowTranslation(false);
+  setOptions(options);
+}
+
+
+  const handleNewGameClick = () => {
+    onNewGame(); // Call the passed function to trigger new game setup
+  };
+
+  const handleAnswerClick = (selectedOption) => {
+    let tempscore
+    if (selectedOption === kanjiData[currentIndex].translation) {
+      setScore(score + 1);
+      tempscore = score + 1
+    } else {
+      tempscore = score
+    }
+
+    setShowTranslation(true);
+    setQuestionCount(questionCount + 1);
+
+    if (questionCount === 9) {
+        const gameHistory = JSON.parse(localStorage.getItem('gameHistory')) || [];
+        console.log(tempscore)
+        const newGame = {
+          "score": tempscore,
+          "gameLevel": gameLevel,
+          timestamp: new Date().toLocaleString(),
+//          difficulty: optionsCount == 3 ? "easy" : optionsCount == 5 ? "medium": "difficult"
+          difficulty: selectedDifficulty
+        };
+        console.log(newGame)
+        gameHistory.push(newGame);
+        localStorage.setItem('gameHistory', JSON.stringify(gameHistory));
+
+//        setGameOver(true);
+        onGameOver();
+        setCurrentGameLevel(gameLevel + 1)
+    } else {
+      setTimeout(() => {
+//        createQuestion(kanjiData);
+      }, TIMEOUT_TIME);
+    }
+  };
+
+  function shuffleOptions(options) {
+    // Shuffle the array of options using Fisher-Yates (Knuth) Shuffle algorithm
+    for (let i = options.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [options[i], options[j]] = [options[j], options[i]];
+    }
+    return options;
+  }
+
+  return (
+    <div>
+      <KanjiDisplay currentIndex={currentIndex} showTranslation={showTranslation} />
+      <KanjiAnswerButtons options={options} onClick={handleAnswerClick} />
+      <p>Difficulty: {selectedDifficulty}</p>
+      <KanjiControls />
+      {gameOver && (
+        <button className="menu-button" onClick={handleNewGameClick}>
+          New Game
+        </button>
+      )}
+    </div>
+  );
+};
+
+export default NewGameScreen;
+/* ChatGPT Ref: ./src/components/SettingsScreen.js */
+import React, { useState } from 'react';
+
+const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
+    const [difficulty, setDifficulty] = useState(localStorage.getItem('difficulty') || 'easy');
+
+  const handleDifficultyChange = (event) => {
+    const selectedDifficulty = event.target.value;
+    setDifficulty(selectedDifficulty);
+    localStorage.setItem('difficulty', selectedDifficulty);
+    onDifficultyChange(selectedDifficulty);
+    window.location.reload(); // Reload the page to reflect the changes
+  };
+
+  return (
+    <div>
+      <h1>SETTINGS SCREEN</h1>
+      <div>
+        <input
+          type="radio"
+          id="easy"
+          name="difficulty"
+          value="easy"
+          checked={difficulty === 'easy'}
+          onChange={handleDifficultyChange}
+        />
+        <label htmlFor="easy">Easy</label>
+      </div>
+      <div>
+        <input
+          type="radio"
+          id="medium"
+          name="difficulty"
+          value="medium"
+          checked={difficulty === 'medium'}
+          onChange={handleDifficultyChange}
+        />
+        <label htmlFor="medium">Medium</label>
+      </div>
+      <div>
+        <input
+          type="radio"
+          id="difficult"
+          name="difficulty"
+          value="difficult"
+          checked={difficulty === 'difficult'}
+          onChange={handleDifficultyChange}
+        />
+        <label htmlFor="difficult">Difficult</label>
+      </div>
+    </div>
+  );
+};
+
+export default SettingsScreen;
+/* ChatGPT Ref: ./src/components/Splash.js */
+import React from 'react';
+import '../css/Splash.css';
+
+const Splash = ({ onContinue }) => {
+  const handleContinue = () => {
+    onContinue();
+  };
+
+  return (
+    <div className="splash-container">
+      <div className="splash-content">
+        <h1>Welcome to Kanji Learning App</h1>
+        <button className="continue-button" onClick={handleContinue}>
+          Continue
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Splash;
+/* ChatGPT Ref: ./src/css/AboutScreen.css */
+.about-screen {
+  padding: 0 5%;
+}
+/* ChatGPT Ref: ./src/css/GameOver.css */
+.game-over-container {
+    background-color: lightgreen;
+    z-index: 5;
+    height: 100%;
+}
+.score-feedback {
+    font-size: 100px;
+}
+
+.new-game-button {
+    width:  40%;
+    height: 10%;
+    font-size: 3em;
+    font-weight: bold;
+}
+/* ChatGPT Ref: ./src/css/HistoryScreen.css */
+
+.game-history-list {
+  font-size: 24px; /* Adjust the font size as desired */
+  max-height: 300px; /* Set the maximum height of the list */
+  overflow-y: auto; /* Add a vertical scrollbar when content overflows */
+}
+/* ChatGPT Ref: ./src/css/KanjiAnswerButtons.css */
+.kanji-answer-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.kanji-answer-button {
+  width: 15%;
+  height: 12%;
+  background-color: lightgreen;
+  color: black;
+  font-size: 1.6rem; /* 20% larger font size */
+  font-weight:  bold;
+  border: none;
+  padding: 12px 24px; /* 20% larger padding */
+  margin: 12px;
+  cursor: pointer;
+  border-radius: 15px; /* Rounded corners with 15px radius */
+}
+/* ChatGPT Ref: ./src/css/KanjiDisplay.css */
+.kanji-display-container {
+  width: 100%;
+  height: 200px;
+  background-color: lightblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.kanji-display-kanji {
+  font-size: 72px;
+}
+
+.kanji-display-button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #f1f1f1;
+  border: none;
+  cursor: pointer;
+}
+/* ChatGPT Ref: ./src/css/KanjiGame.css */
+.kanjigame-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../images/kanjigame.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.kanjigame-content {
+    position: absolute;
+    left: 20%;
+    top: 20%;
+  width: 60%;
+  height: 65%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.white-rectangle {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  opacity: 0.8;
+}
+/* ChatGPT Ref: ./src/css/Menu.css */
+.menu-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.logo-container {
+  margin-top: 20px;
+}
+
+.logo {
+  width: 90%; /* Adjust the width of the logo as needed */
+  height: auto;
+}
+
+.menu-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px;
+  background: linear-gradient(135deg, #8a4fff, #4c00e6);
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  height: 60px; /* Updated height */
+  line-height: 40px; /* Added line-height for vertical alignment */
+  font-size: 30px;
+}
+.menu-button:hover {
+  background: linear-gradient(135deg, #a470ff, #5d1ad6);
+}
+
+.rainbow-title {
+  animation: rainbow 5s linear infinite;
+}
+
+@keyframes rainbow {
+  0% {
+    color: red;
+  }
+  14% {
+    color: orange;
+  }
+  28% {
+    color: yellow;
+  }
+  42% {
+    color: green;
+  }
+  57% {
+    color: blue;
+  }
+  71% {
+    color: indigo;
+  }
+  85% {
+    color: violet;
+  }
+  100% {
+    color: red;
+  }
+}
+
+.logo-move {
+  animation: logoMovement 5s linear;
+}
+
+@keyframes logoMovement {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(100%, 0);
+  }
+}
+/* ChatGPT Ref: ./src/css/Splash.css */
+.splash-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../images/splash.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.splash-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.continue-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 20px;
+}
+/* ChatGPT Ref: ./src/index.css */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+/* ChatGPT Ref: ./src/index.js */
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+/* ChatGPT Ref: ./src/reportWebVitals.js */
+const reportWebVitals = onPerfEntry => {
+  if (onPerfEntry && onPerfEntry instanceof Function) {
+    import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
+      getCLS(onPerfEntry);
+      getFID(onPerfEntry);
+      getFCP(onPerfEntry);
+      getLCP(onPerfEntry);
+      getTTFB(onPerfEntry);
+    });
+  }
+};
+
+export default reportWebVitals;
+/* ChatGPT Ref: ./src/setupTests.js */
+// jest-dom adds custom jest matchers for asserting on DOM nodes.
+// allows you to do things like:
+// expect(element).toHaveTextContent(/react/i)
+// learn more: https://github.com/testing-library/jest-dom
+import '@testing-library/jest-dom';

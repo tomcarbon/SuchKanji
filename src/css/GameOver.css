@@ -1,0 +1,20 @@
+/* ChatGPT Ref: ./src/css/GameOver.css */
+.game-over-container {
+    background-color: lightgreen;
+    z-index: 5;
+    height: 100%;
+}
+.score-feedback {
+    font-size: 100px;
+}
+
+.new-game-button {
+    border-radius: 20px;
+    background-color: lightskyblue;
+    width: 300px;
+    height: 150px;
+    font-size: 40px;
+    font-weight: bolder;
+    color: darkred;
+    word-wrap: break-word;
+}

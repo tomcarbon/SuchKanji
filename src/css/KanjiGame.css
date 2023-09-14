@@ -1,0 +1,30 @@
+/* ChatGPT Ref: ./src/css/KanjiGame.css */
+.kanjigame-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../images/kanjigame.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.kanjigame-content {
+    position: absolute;
+    left: 20%;
+    top: 20%;
+  width: 60%;
+  height: 65%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.white-rectangle {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  opacity: 0.8;
+}

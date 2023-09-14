@@ -1,0 +1,22 @@
+/* ChatGPT Ref: ./src/css/KanjiAnswerButtons.css */
+.kanji-answer-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.kanji-answer-button {
+  width: 15%;
+  height: 12%;
+  background-color: lightgreen;
+  color: black;
+  font-size: 1.6rem; /* 20% larger font size */
+  font-weight:  bold;
+  border: none;
+  padding: 12px 24px; /* 20% larger padding */
+  margin: 12px;
+  cursor: pointer;
+  border-radius: 15px; /* Rounded corners with 15px radius */
+}

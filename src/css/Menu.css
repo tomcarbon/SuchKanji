@@ -1,0 +1,85 @@
+/* ChatGPT Ref: ./src/css/Menu.css */
+.menu-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.logo-container {
+  margin-top: 20px;
+}
+
+.logo {
+  width: 90%; /* Adjust the width of the logo as needed */
+  height: auto;
+}
+
+.menu-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px;
+  background: linear-gradient(135deg, #8a4fff, #4c00e6);
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  height: 60px; /* Updated height */
+  line-height: 40px; /* Added line-height for vertical alignment */
+  font-size: 30px;
+}
+.menu-button:hover {
+  background: linear-gradient(135deg, #a470ff, #5d1ad6);
+}
+
+.rainbow-title {
+  animation: rainbow 5s linear infinite;
+}
+
+@keyframes rainbow {
+  0% {
+    color: red;
+  }
+  14% {
+    color: orange;
+  }
+  28% {
+    color: yellow;
+  }
+  42% {
+    color: green;
+  }
+  57% {
+    color: blue;
+  }
+  71% {
+    color: indigo;
+  }
+  85% {
+    color: violet;
+  }
+  100% {
+    color: red;
+  }
+}
+
+.logo-move {
+  animation: logoMovement 5s linear;
+}
+
+@keyframes logoMovement {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(100%, 0);
+  }
+}

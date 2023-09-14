@@ -1,0 +1,32 @@
+/* ChatGPT Ref: ./src/css/Splash.css */
+.splash-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../images/splash.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.splash-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.continue-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 20px;
+  width: 50%;
+  height: 50%;
+  background-color: rgb(50,180,50,.4);
+  border-radius: 10%;
+  font-size: 9em;
+}
