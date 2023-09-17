@@ -1,7 +1,10 @@
 ./src/App.css
 ./src/App.js
 ./src/App.test.js
+./src/common/Sounds.js
 ./src/components/AboutScreen.js
+./src/components/backgroundImages.js
+./src/components/CountdownTimer.js
 ./src/components/GameOver.js
 ./src/components/HistoryScreen.js
 ./src/components/index.js
@@ -15,12 +18,14 @@
 ./src/components/SettingsScreen.js
 ./src/components/Splash.js
 ./src/css/AboutScreen.css
+./src/css/CountdownTimer.css
 ./src/css/GameOver.css
 ./src/css/HistoryScreen.css
 ./src/css/KanjiAnswerButtons.css
 ./src/css/KanjiDisplay.css
 ./src/css/KanjiGame.css
 ./src/css/Menu.css
+./src/css/SettingsScreen.css
 ./src/css/Splash.css
 ./src/index.css
 ./src/index.js

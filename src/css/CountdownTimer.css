@@ -1,3 +1,4 @@
+/* ChatGPT Ref: ./src/css/CountdownTimer.css */
 .countdown-container {
     position: absolute;
     right:  1%;
@@ -8,4 +9,21 @@
     color: green;
     background-color: beige;
     z-index:            10;
+    border: 3px solid red;
+    padding: 10px;
+}
+
+.countdown-green {
+  color: green;
+}
+
+.countdown-red {
+  color: red;
+  animation: flashRed 1s infinite alternate;
+}
+
+@keyframes flashRed {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
 }

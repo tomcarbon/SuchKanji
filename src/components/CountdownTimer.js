@@ -1,3 +1,4 @@
+/* ChatGPT Ref: ./src/components/CountdownTimer.js */
 // ChatGPT Ref: ./src/components/countdownTimer.js
 import React, { useState, useEffect } from 'react';
 import '../css/CountdownTimer.css';
@@ -18,8 +19,12 @@ const CountdownTimer = ({ initialTime = 20, onTimeOut }) => {
     return () => clearInterval(intervalId); // Cleanup timer on component unmount.
   }, [timeLeft, onTimeOut]);
 
+  const timerClass = timeLeft <= 5 ? "countdown-red" : "countdown-green";
+
   return (
-    <div className="countdown-container"> {timeLeft.toString().padStart(2, '0')} </div>
+    <div className={`countdown-container ${timerClass}`}>
+      {timeLeft.toString().padStart(2, '0')}
+    </div>
   );
 };
 

@@ -1,6 +1,8 @@
 Directory Tree:
 
   |-src
+  |  |-audio
+  |  |-common
   |  |-components
   |  |-css
   |  |-images
@@ -79,6 +81,241 @@ test('renders learn react link', () => {
   const linkElement = screen.getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });
+/* ChatGPT Ref: ./src/common/Sounds.js */
+import React, { useState, useEffect } from 'react';
+import { Howl } from 'howler';
+import goodBeep from '../audio/goodBeep.mp3';
+import goodWin1 from '../audio/goodWin1.mp3';
+import blastAll from '../audio/blastAll.mp3';
+import frogCroak from '../audio/frogCroak.mp3';
+import timerSong001 from '../audio/timerSong001.mp3';
+import zen1 from '../audio/zen1.mp3';
+import zenGood00 from '../audio/zenGood00.mp3';
+import zenGood01 from '../audio/zenGood01.mp3';
+import zenGood02 from '../audio/zenGood02.mp3';
+import zenGood03 from '../audio/zenGood03.mp3';
+import zenGood04 from '../audio/zenGood04.mp3';
+import zenGood05 from '../audio/zenGood05.mp3';
+import zenGood06 from '../audio/zenGood06.mp3';
+import zenGood07 from '../audio/zenGood07.mp3';
+import zenGood08 from '../audio/zenGood08.mp3';
+import zenGood09 from '../audio/zenGood09.mp3';
+
+
+const sound1 = new Howl({
+    src: [goodBeep],
+    preload: true
+});
+
+const sound2 = new Howl({
+    src: [blastAll],
+    preload: true
+});
+
+const sound3 = new Howl({
+    src: [frogCroak],
+    preload: true
+});
+
+const sound4 = new Howl({
+    src: [timerSong001],
+    preload: true
+});
+
+const sound5 = new Howl({
+    src: [zen1],
+    preload: true
+});
+
+const soundA0 = new Howl({
+    src: [zenGood00],
+    preload: true
+});
+
+const soundA1 = new Howl({
+    src: [zenGood01],
+    preload: true
+});
+
+const soundA2 = new Howl({
+    src: [zenGood02],
+    preload: true
+});
+
+const soundA3 = new Howl({
+    src: [zenGood03],
+    preload: true
+});
+
+const soundA4 = new Howl({
+    src: [zenGood04],
+    preload: true
+});
+
+const soundA5 = new Howl({
+    src: [zenGood05],
+    preload: true
+});
+
+const soundA6 = new Howl({
+    src: [zenGood06],
+    preload: true
+});
+
+const soundA7 = new Howl({
+    src: [zenGood07],
+    preload: true
+});
+
+const soundA8 = new Howl({
+    src: [zenGood08],
+    preload: true
+});
+
+const soundA9 = new Howl({
+//    src: [zenGood09],
+    src: [zen1],
+    preload: true
+});
+
+const soundGW1 = new Howl({
+    src: [goodWin1],
+    preload: true
+});
+
+export function playSound(frog) {
+  switch (frog) {
+    case  'goodBeep.mp3':
+        sound1.play();
+      break;
+    case 'blastAll.mp3': 
+        sound2.play();
+      break;
+    case 'frogCroak.mp3':
+        sound3.play();
+      break;
+    case 'timerSong001.mp3':
+        sound4.play();
+      break;
+    case 'zen1.mp3': 
+      sound5.play();
+      break;
+    case 'zenGood00.mp3': 
+      soundA0.play();
+      break;
+    case 'zenGood01.mp3': 
+      soundA1.play();
+      break;
+    case 'zenGood02.mp3': 
+      soundA2.play();
+      break;
+    case 'zenGood03.mp3': 
+      soundA3.play();
+      break;
+    case 'zenGood04.mp3': 
+      soundA4.play();
+      break;
+    case 'zenGood05.mp3': 
+      soundA5.play();
+      break;
+    case 'zenGood06.mp3': 
+      soundA6.play();
+      break;
+    case 'zenGood07.mp3': 
+      soundA7.play();
+      break;
+    case 'zenGood08.mp3': 
+      soundA8.play();
+      break;
+    case 'zenGood09.mp3': 
+      soundA9.play();
+      break;
+    case 'goodWin1.mp3': 
+      soundGW1.play();
+      break;
+    default: 
+      console.log(`playSound error with '${frog}`)
+      break;
+  }
+}
+
+export function stopSounds() {
+    sound1.stop();
+    sound2.stop();
+    sound3.stop();
+    sound4.stop();
+    sound5.stop();
+    soundA0.stop();
+    soundA1.stop();
+    soundA2.stop();
+    soundA3.stop();
+    soundA4.stop();
+    soundA5.stop();
+    soundA6.stop();
+    soundA7.stop();
+    soundA8.stop();
+    soundA9.stop();
+    soundGW1.stop();
+}
+
+export function stopSound(frog) {
+  switch (frog) {
+    case  'goodBeep.mp3':
+        sound1.stop();
+      break;
+    case 'blastAll.mp3': 
+        sound2.stop();
+      break;
+    case 'frogCroak.mp3':
+        sound3.stop();
+      break;
+    case 'timerSong001.mp3':
+        sound4.stop();
+      break;
+    case 'zen1.mp3': 
+      sound5.stop();
+      break;
+    case 'zenGood00.mp3': 
+      soundA0.stop();
+      break;
+    case 'zenGood01.mp3': 
+      soundA1.stop();
+      break;
+    case 'zenGood02.mp3': 
+      soundA2.stop();
+      break;
+    case 'zenGood03.mp3': 
+      soundA3.stop();
+      break;
+    case 'zenGood04.mp3': 
+      soundA4.stop();
+      break;
+    case 'zenGood05.mp3': 
+      soundA5.stop();
+      break;
+    case 'zenGood06.mp3': 
+      soundA6.stop();
+      break;
+    case 'zenGood07.mp3': 
+      soundA7.stop();
+      break;
+    case 'zenGood08.mp3': 
+      soundA8.stop();
+      break;
+    case 'zenGood09.mp3': 
+      soundA9.stop();
+      break;
+    case 'goodWin1.mp3': 
+      soundGW1.stop();
+      break;
+    default: 
+      console.log(`playSound error with '${frog}`)
+      break;
+  }
+}
+
+
+export default {playSound, stopSounds, stopSound}
 /* ChatGPT Ref: ./src/components/AboutScreen.js */
 import React from 'react';
 import '../css/AboutScreen.css';
@@ -95,10 +332,78 @@ const AboutScreen = () => {
 };
 
 export default AboutScreen;
+/* ChatGPT Ref: ./src/components/backgroundImages.js */
+const backgroundImages =  
+    [
+        "images/background001.jpg",
+        "images/background002.png",
+        "images/background003.jpg",
+        "images/background004.jpg",
+        "images/background005.png",
+        "images/background006.png",
+        "images/background007.png",
+        "images/background008.png",
+        "images/background009.jpg",
+        "images/background010.jpg",
+        "images/background011.jpg",
+        "images/background012.png",
+        "images/background013.png",
+        "images/background014.jpg",
+        "images/background015.png",
+        "images/background016.jpg",
+        "images/background017.png",
+        "images/background018.png",
+        "images/background019.png",
+        "images/background020.jpg",
+        "images/background021.png",
+        "images/background022.png",
+        "images/background023.png",
+        "images/background024.png",
+        "images/background025.png",
+        "images/background026.png",
+        "images/background027.jpg",
+        "images/background028.jpg",
+        "images/background029.png",
+        "images/background030.png"
+    ];
+
+export default backgroundImages
+/* ChatGPT Ref: ./src/components/CountdownTimer.js */
+// ChatGPT Ref: ./src/components/countdownTimer.js
+import React, { useState, useEffect } from 'react';
+import '../css/CountdownTimer.css';
+
+const CountdownTimer = ({ initialTime = 20, onTimeOut }) => {
+  const [timeLeft, setTimeLeft] = useState(initialTime);
+
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      onTimeOut();  // Call the parent's game over handler.
+      return;
+    }
+
+    const intervalId = setInterval(() => {
+      setTimeLeft((prevTime) => prevTime - 1);
+    }, 1000);
+
+    return () => clearInterval(intervalId); // Cleanup timer on component unmount.
+  }, [timeLeft, onTimeOut]);
+
+  const timerClass = timeLeft <= 5 ? "countdown-red" : "countdown-green";
+
+  return (
+    <div className={`countdown-container ${timerClass}`}>
+      {timeLeft.toString().padStart(2, '0')}
+    </div>
+  );
+};
+
+export default CountdownTimer;
 /* ChatGPT Ref: ./src/components/GameOver.js */
 
 import React from 'react';
 import '../css/GameOver.css';
+import {stopSound} from '../common/Sounds';
 
 const GameOver = ({ score, startNewGame }) => {
   const feedbackMessages = [
@@ -119,6 +424,9 @@ const GameOver = ({ score, startNewGame }) => {
   if (score > 9) {
     feedbackMessage = feedbackMessages[3];
   }
+
+  
+  stopSound("timerSong001.mp3")
 
   return (
     <div className="game-over-container">
@@ -154,15 +462,17 @@ const HistoryScreen = () => {
   return (
     <div>
       <h1>HISTORY SCREEN</h1>
+
       <ul className="game-history-list">
         {gameHistory.map((game, index) => (
-          <li key={index}>
+          <li className="game-history-list-item" key={index}>
             Game {index + 1}: {game.score}/10 (Date: {game.timestamp} Difficulty: {game.difficulty})
+          <hr/>
           </li>
         ))}
       </ul>
       {gameHistory.length > 0 && (
-        <button onClick={handleResetHistory}>Reset History</button>
+        <button className="game-history-remove-button" onClick={handleResetHistory}>Reset History</button>
       )}
     </div>
   );
@@ -330,6 +640,7 @@ export default KanjiDisplay;
 /* ChatGPT Ref: ./src/components/KanjiGame.js */
 import React, { useState, useEffect } from 'react';
 import '../css/KanjiGame.css';
+import backgroundImages from './backgroundImages';
 import Menu from './Menu';
 import NewGameScreen from './NewGameScreen';
 import HistoryScreen from './HistoryScreen';
@@ -337,7 +648,6 @@ import SettingsScreen from './SettingsScreen';
 import AboutScreen from './AboutScreen';
 import GameOver from './GameOver';
 import kanjiData from './kanjiData'; // Add this import statement
-
 
 const KanjiGame = ({ onContinue }) => {
   const [activeScreen, setActiveScreen] = useState('');
@@ -349,9 +659,18 @@ const KanjiGame = ({ onContinue }) => {
   const [isAnswered, setIsAnswered] = useState(false);
   const [optionsCount, setOptionsCount] = useState(3); // Initialize with default number of options
   const [difficulty, setDifficulty] = useState(localStorage.getItem('difficulty') || 'easy');
+  const [currentBackground, setCurrentBackground] = useState(backgroundImages[0]);
+  const [mode, setMode] = useState(localStorage.getItem('mode') || 'Zen Mode');
+
 
 
 const handleNewGameClick = () => {
+  
+  if (mode == "Wow Mode") {
+      changeBackground(2);
+  } else {
+      changeBackground(4);
+  }
   console.info("handleNewGameClick()")
 //  handleDifficultyChange(difficulty)
   setScore(0);
@@ -402,6 +721,10 @@ const handleNewGameClick = () => {
     return options;
   }
 
+  const changeBackground = (index) => {
+    setCurrentBackground(backgroundImages[index]);
+  };
+
   function randomIndex(dataLength) {
     const correctIndex = Math.floor(Math.random() * dataLength); // Random index for correct button
 
@@ -435,7 +758,7 @@ const handleNewGameClick = () => {
   }
 
   return (
-    <div className="kanjigame-container">
+    <div className="kanjigame-container" style={{ backgroundImage: `url(${currentBackground})`}}>
       <Menu onScreenChange={handleScreenChange} setScore={setScore} />
       <div className="kanjigame-content">
         <div className="white-rectangle">
@@ -528,6 +851,9 @@ import KanjiDisplay from './KanjiDisplay';
 import KanjiAnswerButtons from './KanjiAnswerButtons';
 import KanjiControls from './KanjiControls';
 import kanjiData from './kanjiData';
+import {playSound, stopSounds, stopSound} from '../common/Sounds';
+import CountdownTimer from './CountdownTimer';
+
 
 const TIMEOUT_TIME = 500
 
@@ -539,6 +865,8 @@ const NewGameScreen = ({ selectedDifficulty, onContinue, onGameOver, score, setS
   const [gameOver, setGameOver] = useState(false);
   const [gameLevel, setCurrentGameLevel] = useState(1);
   const [options, setOptions] = useState([]);
+
+  const mode = localStorage.getItem('mode') || "Zen Mode"
 
   useEffect(() => {
     createQuestion(kanjiData);
@@ -574,6 +902,7 @@ function createQuestion(data) {
 
 
   const handleNewGameClick = () => {
+    stopSounds();
     onNewGame(); // Call the passed function to trigger new game setup
   };
 
@@ -582,8 +911,29 @@ function createQuestion(data) {
     if (selectedOption === kanjiData[currentIndex].translation) {
       setScore(score + 1);
       tempscore = score + 1
+
+      if (mode == "Wow Mode") {
+        if (score < 9) {
+          playSound("goodBeep.mp3")
+        }
+        else {
+          playSound("goodWin1.mp3") // got all 10 right
+        }
+      } else if (mode == "Zen Mode") {
+        const stg = `zenGood0${score}.mp3`; // last one is special if all 10 are right
+        playSound(stg);
+      }
     } else {
       tempscore = score
+      playSound("frogCroak.mp3")
+    }
+    if (questionCount == 0) {
+      console.log(mode)
+      if (mode == "Zen Mode") {
+//        playSound("zen1.mp3")
+      } else if (mode == "Wow Mode") {
+        playSound("timerSong001.mp3")
+      }
     }
 
     setShowTranslation(true);
@@ -624,9 +974,10 @@ function createQuestion(data) {
 
   return (
     <div>
+       {mode === "Wow Mode" && <CountdownTimer onTimeOut={onGameOver} />}
+
       <KanjiDisplay currentIndex={currentIndex} showTranslation={showTranslation} />
       <KanjiAnswerButtons options={options} onClick={handleAnswerClick} />
-      <p>Difficulty: {selectedDifficulty}</p>
       <KanjiControls />
       {gameOver && (
         <button className="menu-button" onClick={handleNewGameClick}>
@@ -640,9 +991,11 @@ function createQuestion(data) {
 export default NewGameScreen;
 /* ChatGPT Ref: ./src/components/SettingsScreen.js */
 import React, { useState } from 'react';
+import '../css/SettingsScreen.css';
 
 const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
     const [difficulty, setDifficulty] = useState(localStorage.getItem('difficulty') || 'easy');
+    const [mode, setMode] = useState(localStorage.getItem('mode') || 'Zen Mode');
 
   const handleDifficultyChange = (event) => {
     const selectedDifficulty = event.target.value;
@@ -652,41 +1005,79 @@ const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
     window.location.reload(); // Reload the page to reflect the changes
   };
 
+  const handleModeChange = (event) => {
+    const selectedMode = event.target.value;
+    setMode(selectedMode);
+    localStorage.setItem('mode', selectedMode);
+    // Optional: You can also add onModeChange callback to handle the mode change if required
+    window.location.reload();
+  };
+
   return (
     <div>
       <h1>SETTINGS SCREEN</h1>
-      <div>
-        <input
-          type="radio"
-          id="easy"
-          name="difficulty"
-          value="easy"
-          checked={difficulty === 'easy'}
-          onChange={handleDifficultyChange}
-        />
-        <label htmlFor="easy">Easy</label>
+      <div className='settings-screen-difficulty'>
+        <h3>Difficulty</h3>
+        <hr></hr>
+        <div>
+          <input
+            type="radio"
+            id="easy"
+            name="difficulty"
+            value="easy"
+            checked={difficulty === 'easy'}
+            onChange={handleDifficultyChange}
+          />
+          <label htmlFor="easy">Easy</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="medium"
+            name="difficulty"
+            value="medium"
+            checked={difficulty === 'medium'}
+            onChange={handleDifficultyChange}
+          />
+          <label htmlFor="medium">Medium</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="difficult"
+            name="difficulty"
+            value="difficult"
+            checked={difficulty === 'difficult'}
+            onChange={handleDifficultyChange}
+          />
+          <label htmlFor="difficult">Difficult</label>
+        </div>
       </div>
-      <div>
-        <input
-          type="radio"
-          id="medium"
-          name="difficulty"
-          value="medium"
-          checked={difficulty === 'medium'}
-          onChange={handleDifficultyChange}
-        />
-        <label htmlFor="medium">Medium</label>
-      </div>
-      <div>
-        <input
-          type="radio"
-          id="difficult"
-          name="difficulty"
-          value="difficult"
-          checked={difficulty === 'difficult'}
-          onChange={handleDifficultyChange}
-        />
-        <label htmlFor="difficult">Difficult</label>
+      <div className='settings-screen-mode'>
+        <h3>Mode</h3>
+        <hr></hr>
+        <div>
+          <input
+            type="radio"
+            id="zenMode"
+            name="mode"
+            value="Zen Mode"
+            checked={mode === 'Zen Mode'}
+            onChange={handleModeChange}
+          />
+          <label htmlFor="zenMode">Zen Mode</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="wowMode"
+            name="mode"
+            value="Wow Mode"
+            checked={mode === 'Wow Mode'}
+            onChange={handleModeChange}
+          />
+          <label htmlFor="wowMode">Wow Mode</label>
+        </div>
       </div>
     </div>
   );
@@ -719,6 +1110,35 @@ export default Splash;
 .about-screen {
   padding: 0 5%;
 }
+/* ChatGPT Ref: ./src/css/CountdownTimer.css */
+.countdown-container {
+    position: absolute;
+    right:  1%;
+    top: 1%;
+    width: 200px;
+    font-size:  128px;
+    font-weight:    bold;
+    color: green;
+    background-color: beige;
+    z-index:            10;
+    border: 3px solid red;
+    padding: 10px;
+}
+
+.countdown-green {
+  color: green;
+}
+
+.countdown-red {
+  color: red;
+  animation: flashRed 1s infinite alternate;
+}
+
+@keyframes flashRed {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
 /* ChatGPT Ref: ./src/css/GameOver.css */
 .game-over-container {
     background-color: lightgreen;
@@ -730,10 +1150,14 @@ export default Splash;
 }
 
 .new-game-button {
-    width:  40%;
-    height: 10%;
-    font-size: 3em;
-    font-weight: bold;
+    border-radius: 20px;
+    background-color: lightskyblue;
+    width: 300px;
+    height: 150px;
+    font-size: 40px;
+    font-weight: bolder;
+    color: darkred;
+    word-wrap: break-word;
 }
 /* ChatGPT Ref: ./src/css/HistoryScreen.css */
 
@@ -741,6 +1165,22 @@ export default Splash;
   font-size: 24px; /* Adjust the font size as desired */
   max-height: 300px; /* Set the maximum height of the list */
   overflow-y: auto; /* Add a vertical scrollbar when content overflows */
+}
+
+.game-history-list-item {
+  background-color: aqua;
+  font-size: 25px;
+  word-wrap: break-word;
+}
+
+.game-history-remove-button {
+    background-color: darkred;
+    color: whitesmoke;
+    width: 300px;
+    height: 100px;
+    font-size: 40px;
+    word-wrap: break-word;
+    border-radius: 20px;
 }
 /* ChatGPT Ref: ./src/css/KanjiAnswerButtons.css */
 .kanji-answer-buttons {
@@ -794,7 +1234,7 @@ export default Splash;
   top: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../images/kanjigame.png');
+  background-image: url('../images/background019.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -902,6 +1342,32 @@ export default Splash;
     transform: translate(100%, 0);
   }
 }
+/* ChatGPT Ref: ./src/css/SettingsScreen.css */
+.settings-screen {
+  height: 100%;
+  overflow: auto;
+  padding: 0 5%;
+}
+
+.settings-screen-difficulty {
+  font-size: 35px;
+  color: red;
+
+}
+
+.settings-screen-difficulty {
+  width: 50%;
+  color: darkred;
+  background-color: aquamarine;
+  font-size: 30px;
+}
+
+.settings-screen-mode {
+  width: 50%;
+  color: burlywood;
+  background-color: purple;
+  font-size: 30px;
+}
 /* ChatGPT Ref: ./src/css/Splash.css */
 .splash-container {
   position: absolute;
@@ -928,6 +1394,11 @@ export default Splash;
   margin-top: 20px;
   padding: 10px 20px;
   font-size: 20px;
+  width: 50%;
+  height: 50%;
+  background-color: rgb(50,180,50,.4);
+  border-radius: 10%;
+  font-size: 9em;
 }
 /* ChatGPT Ref: ./src/index.css */
 body {

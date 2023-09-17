@@ -1,6 +1,8 @@
 /* ChatGPT Ref: ./src/components/KanjiGame.js */
 import React, { useState, useEffect } from 'react';
 import '../css/KanjiGame.css';
+import backgroundImages from './backgroundImages';
+import foo from '../images/background009.jpg';
 import Menu from './Menu';
 import NewGameScreen from './NewGameScreen';
 import HistoryScreen from './HistoryScreen';
@@ -8,6 +10,7 @@ import SettingsScreen from './SettingsScreen';
 import AboutScreen from './AboutScreen';
 import GameOver from './GameOver';
 import kanjiData from './kanjiData'; // Add this import statement
+import {playSound, stopSounds, stopSound} from '../common/Sounds';
 
 const KanjiGame = ({ onContinue }) => {
   const [activeScreen, setActiveScreen] = useState('');
@@ -19,11 +22,32 @@ const KanjiGame = ({ onContinue }) => {
   const [isAnswered, setIsAnswered] = useState(false);
   const [optionsCount, setOptionsCount] = useState(3); // Initialize with default number of options
   const [difficulty, setDifficulty] = useState(localStorage.getItem('difficulty') || 'easy');
+  const [currentBackground, setCurrentBackground] = useState(backgroundImages[0]);
+  const [mode, setMode] = useState(localStorage.getItem('mode') || 'Zen Mode');
 
+
+ function changeBackground (index)  {
+//    setCurrentBackground(backgroundImages[index]);
+    setCurrentBackground(backgroundImages[index])
+//    alert(`changeBackground(${index} for '${backgroundImages[index]}'}). currentBackground = '${currentBackground}`)
+  };
+
+
+const getRandomInt = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 const handleNewGameClick = () => {
-  console.info("handleNewGameClick()")
-//  handleDifficultyChange(difficulty)
+  console.info("handleNewGameClick() in KanjiGame.js")
+  if (mode == "Wow Mode") {
+    console.info("wow mode")
+      changeBackground(5);
+      playSound("timerSong001.mp3")
+  } else {
+    console.info("zen mode")
+      changeBackground(getRandomInt(0,29));
+        playSound("zen1.mp3")
+  }
   setScore(0);
   setQuestionCount(0);
   setGameOver(false);
@@ -72,6 +96,7 @@ const handleNewGameClick = () => {
     return options;
   }
 
+
   function randomIndex(dataLength) {
     const correctIndex = Math.floor(Math.random() * dataLength); // Random index for correct button
 
@@ -105,7 +130,8 @@ const handleNewGameClick = () => {
   }
 
   return (
-    <div className="kanjigame-container">
+    <div className="kanjigame-container" style={{ backgroundImage: `url(${currentBackground})` }}>
+
       <Menu onScreenChange={handleScreenChange} setScore={setScore} />
       <div className="kanjigame-content">
         <div className="white-rectangle">
@@ -137,3 +163,8 @@ const handleNewGameClick = () => {
 };
 
 export default KanjiGame;
+
+/*
+
+    </div><div className="kanjigame-container" style={{ backgroundImage: `url(${currentBackground})` }}>
+    */

@@ -20,6 +20,7 @@ const NewGameScreen = ({ selectedDifficulty, onContinue, onGameOver, score, setS
   const [options, setOptions] = useState([]);
 
   const mode = localStorage.getItem('mode') || "Zen Mode"
+
   useEffect(() => {
     createQuestion(kanjiData);
     console.info("NGS.js: useEffect -> createQuestion")
@@ -54,6 +55,7 @@ function createQuestion(data) {
 
 
   const handleNewGameClick = () => {
+    stopSounds();
     onNewGame(); // Call the passed function to trigger new game setup
   };
 
@@ -77,14 +79,6 @@ function createQuestion(data) {
     } else {
       tempscore = score
       playSound("frogCroak.mp3")
-    }
-    if (questionCount == 0) {
-      console.log(mode)
-      if (mode == "Zen Mode") {
-//        playSound("zen1.mp3")
-      } else if (mode == "Wow Mode") {
-        playSound("timerSong001.mp3")
-      }
     }
 
     setShowTranslation(true);
@@ -129,7 +123,6 @@ function createQuestion(data) {
 
       <KanjiDisplay currentIndex={currentIndex} showTranslation={showTranslation} />
       <KanjiAnswerButtons options={options} onClick={handleAnswerClick} />
-      <p>Difficulty: {selectedDifficulty}</p>
       <KanjiControls />
       {gameOver && (
         <button className="menu-button" onClick={handleNewGameClick}>

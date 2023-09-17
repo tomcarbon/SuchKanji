@@ -1,3 +1,4 @@
+/* ChatGPT Ref: ./src/common/Sounds.js */
 import React, { useState, useEffect } from 'react';
 import { Howl } from 'howler';
 import goodBeep from '../audio/goodBeep.mp3';
@@ -232,4 +233,3 @@ export function stopSound(frog) {
 
 
 export default {playSound, stopSounds, stopSound}
-
