@@ -14,7 +14,7 @@ import {playSound, stopSounds, stopSound} from '../common/Sounds';
 
 const KanjiGame = ({ onContinue }) => {
   const [activeScreen, setActiveScreen] = useState('');
-  const [gameOver, setGameOver] = useState(false);
+  const [gameOver, setGameOver] = useState(false);     // TCCDEBUG want to make this true and New Game button simply shows game over screen 20230918 
   const [score, setScore] = useState(0);
   const [questionCount, setQuestionCount] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -78,8 +78,13 @@ const handleNewGameClick = () => {
 
   const handleScreenChange = (screen) => {
     console.info(`handlScreenChange: screen = ${screen}`)
-    setActiveScreen(screen);
-    setGameOver(false);
+    if (screen == 'newGame') {
+      setActiveScreen(screen);
+      setGameOver(true);
+    } else {
+      setActiveScreen(screen);
+      setGameOver(false);
+    }
   };
 
   const resetGame = () => {

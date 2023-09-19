@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import '../css/CountdownTimer.css';
 
-const CountdownTimer = ({ initialTime = 20, onTimeOut }) => {
+const CountdownTimer = ({ initialTime = 25, onTimeOut }) => {
   const [timeLeft, setTimeLeft] = useState(initialTime);
 
   useEffect(() => {

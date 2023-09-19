@@ -19,7 +19,7 @@ const Menu = ({ onScreenChange, setScore }) => {
 
   const handleNewGameButtonClick = () => {
     console.info(`Menu.js: handleNewGameButtonClick()`)
-    setScore(0)
+//    setScore(0)
     onScreenChange('newGame');
   };
 
@@ -37,13 +37,13 @@ const Menu = ({ onScreenChange, setScore }) => {
       </div>
       <h2 className={rainbowMode ? 'rainbow-title' : ''}>Such Kanji!</h2>
       <button className="menu-button" onClick={handleNewGameButtonClick}>
-        New Game
-      </button>
-      <button className="menu-button" onClick={handleHistoryButtonClick}>
-        History
+        Play
       </button>
       <button className="menu-button" onClick={handleSettingsButtonClick}>
         Settings
+      </button>
+      <button className="menu-button" onClick={handleHistoryButtonClick}>
+        History
       </button>
       <button className="menu-button" onClick={handleAboutButtonClick}>
         About
