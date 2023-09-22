@@ -46,7 +46,7 @@ const handleNewGameClick = () => {
   } else {
     console.info("zen mode")
       changeBackground(getRandomInt(0,29));
-        playSound("zen1.mp3")
+//        playSound("zen1.mp3")
   }
   setScore(0);
   setQuestionCount(0);
@@ -129,7 +129,7 @@ const handleNewGameClick = () => {
     ];
 
     setCurrentIndex(correctIndex);
-    setShowTranslation(false);
+//    setShowTranslation(false);
     setIsAnswered(false);
     setOptions(shuffleOptions(options));
   }

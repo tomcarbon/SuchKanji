@@ -6,7 +6,7 @@ add_identification_comment() {
   file_extension="${file_path##*.}"
 
   # Check if file extension is either 'js' or 'css'
-  if [[ $file_extension == "js" || $file_extension == "css" ]]; then
+  if [[ $file_extension == "js" || $file_extension == "css" || $file_extension == "cpp" || $file_extension == "c" ]]; then
     # Check if the identification comment exists in the file
     if ! grep -q "ChatGPT Ref:" "$file_path"; then
       # Add identification comment to the file
@@ -24,8 +24,19 @@ add_identification_comment() {
   fi
 }
 
-# Find all js and css files in the src directory (including subdirectories)
-file_list=$(find ./src -type f \( -name "*.js" -o -name "*.css" \))
+# Check command line options
+if [[ $1 == "--react" ]]; then
+  # Find all js and css files in the . directory (including /src and subdirectories)
+  file_list=$(find ./src -type f \( -name "*.js" -o -name "*.css" \))
+elif [[ $1 == "--file_list" ]]; then
+  shift
+  file_list="$@"
+else
+  echo "Usage:"
+  echo "$0 --react                           : Process all .js and .css files under the current directory and its subdirectories"
+  echo "$0 --file_list <file1> <file2> ...   : Process only the specified files"
+  exit 1
+fi
 
 # Process each file and add identification comment if necessary
 for file_path in $file_list; do
@@ -42,7 +53,12 @@ concatenated_output=$(cat $file_list)
 # Create the output text file
 output_text_file="output.txt"
 echo -e "Directory Tree:\n" >"$output_text_file"
-find ./src -type d -print | sed -e 's/[^-][^\/]*\//  |/g' -e 's/|\([^ ]\)/|-\1/' >>"$output_text_file"
+if [[ $1 == "--react" ]]; then
+  find ./src -type d -print | sed -e 's/[^-][^\/]*\//  |/g' -e 's/|\([^ ]\)/|-\1/' >>"$output_text_file"
+else
+  find . -type d -print | sed -e 's/[^-][^\/]*\//  |/g' -e 's/|\([^ ]\)/|-\1/' >>"$output_text_file"
+fi
 echo -e "\nConcatenated Output:\n\n$concatenated_output" >>"$output_text_file"
 
 echo "Identification comments added to files. Output files created: $output_file, $output_text_file"
+

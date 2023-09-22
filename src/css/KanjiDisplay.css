@@ -5,12 +5,12 @@
   background-color: lightblue;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+/*  justify-content: center;*/
   align-items: center;
 }
 
 .kanji-display-kanji {
-  font-size: 96px;
+  font-size: 112px;
 }
 
 .kanji-display-button {
@@ -20,4 +20,13 @@
   background-color: #f1f1f1;
   border: none;
   cursor: pointer;
+}
+
+.kanji-display-translation {
+  align-items: center;
+  position: absolute;
+  top: 140px;
+  font-size: 40px;
+  font-weight: bolder;
+  width: 100%;
 }

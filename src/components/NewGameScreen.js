@@ -14,7 +14,9 @@ const NewGameScreen = ({ selectedDifficulty, onContinue, onGameOver, score, setS
 
   const [questionCount, setQuestionCount] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [lastIndex, setLastIndex] = useState(0);
   const [showTranslation, setShowTranslation] = useState(false);
+  const [wasCorrect, setWasCorrect] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [gameLevel, setCurrentGameLevel] = useState(1);
   const [options, setOptions] = useState([]);
@@ -49,7 +51,6 @@ function createQuestion(data) {
   ]);
 
   setCurrentIndex(correctIndex);
-  setShowTranslation(false);
   setOptions(options);
 }
 
@@ -62,6 +63,7 @@ function createQuestion(data) {
   const handleAnswerClick = (selectedOption) => {
     let tempscore
     if (selectedOption === kanjiData[currentIndex].translation) {
+      setWasCorrect(true);
       setScore(score + 1);
       tempscore = score + 1
 
@@ -77,34 +79,37 @@ function createQuestion(data) {
         playSound(stg);
       }
     } else {
+      setWasCorrect(false);
       tempscore = score
       playSound("frogCroak.mp3")
     }
 
+    setLastIndex(currentIndex)
     setShowTranslation(true);
-    setQuestionCount(questionCount + 1);
+    {   // show the correct or incorrect answer for 250ms
+    setTimeout(() => {
+          setShowTranslation(false);
+      setQuestionCount(questionCount + 1);
 
-    if (questionCount === 9) {
-        const gameHistory = JSON.parse(localStorage.getItem('gameHistory')) || [];
-        console.log(tempscore)
-        const newGame = {
-          "score": tempscore,
-          "gameLevel": gameLevel,
-          timestamp: new Date().toLocaleString(),
-//          difficulty: optionsCount == 3 ? "easy" : optionsCount == 5 ? "medium": "difficult"
-          difficulty: selectedDifficulty
-        };
-        console.log(newGame)
-        gameHistory.push(newGame);
-        localStorage.setItem('gameHistory', JSON.stringify(gameHistory));
+      if (questionCount === 9) {
+          const gameHistory = JSON.parse(localStorage.getItem('gameHistory')) || [];
+          console.log(tempscore)
+          const newGame = {
+            "score": tempscore,
+            "gameLevel": gameLevel,
+            timestamp: new Date().toLocaleString(),
+  //          difficulty: optionsCount == 3 ? "easy" : optionsCount == 5 ? "medium": "difficult"
+            difficulty: selectedDifficulty
+          };
+          console.log(newGame)
+          gameHistory.push(newGame);
+          localStorage.setItem('gameHistory', JSON.stringify(gameHistory));
 
-//        setGameOver(true);
-        onGameOver();
-        setCurrentGameLevel(gameLevel + 1)
-    } else {
-      setTimeout(() => {
-//        createQuestion(kanjiData);
-      }, TIMEOUT_TIME);
+  //        setGameOver(true);
+          onGameOver();
+          setCurrentGameLevel(gameLevel + 1)
+      } 
+    }, 250);
     }
   };
 
@@ -121,7 +126,7 @@ function createQuestion(data) {
     <div>
        {mode === "Wow Mode" && <CountdownTimer onTimeOut={onGameOver} />}
 
-      <KanjiDisplay currentIndex={currentIndex} showTranslation={showTranslation} />
+      <KanjiDisplay wasCorrect={wasCorrect} currentIndex={currentIndex} lastIndex={lastIndex} showTranslation={showTranslation} />
       <KanjiAnswerButtons options={options} onClick={handleAnswerClick} />
       <KanjiControls />
       {gameOver && (
