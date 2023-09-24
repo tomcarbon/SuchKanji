@@ -6,21 +6,15 @@
 }
 
 .settings-screen-difficulty {
-  font-size: 35px;
-  color: red;
-
-}
-
-.settings-screen-difficulty {
   width: 50%;
   color: darkred;
-  background-color: aquamarine;
+  background-color: white;
   font-size: 30px;
 }
 
 .settings-screen-mode {
-  width: 50%;
+  width: 49%;
   color: burlywood;
-  background-color: purple;
+  background-color: white;
   font-size: 30px;
 }

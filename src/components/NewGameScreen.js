@@ -8,7 +8,8 @@ import {playSound, stopSounds, stopSound} from '../common/Sounds';
 import CountdownTimer from './CountdownTimer';
 
 
-const TIMEOUT_TIME = 500
+const ZEN_TIMEOUT_TIME = 1000
+const WOW_TIMEOUT_TIME = 250
 
 const NewGameScreen = ({ selectedDifficulty, onContinue, onGameOver, score, setScore, resetGame, optionsCount, onNewGame, isMuted }) => {
 
@@ -43,12 +44,23 @@ function createQuestion(data) {
     optionsCount = 20;
   }
 
+  const getRandomInt = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
   // Shuffle incorrect options
   const shuffledIncorrectIndices = shuffleOptions(incorrectIndices).slice(0, optionsCount - 1);
-  const options = shuffleOptions([
-    data[correctIndex].translation,
-    ...shuffledIncorrectIndices.map((index) => data[index].translation),
-  ]);
+  let options;
+  if (getRandomInt(0,1) == 0) {
+    options = shuffleOptions([
+      data[correctIndex].romaji,
+      ...shuffledIncorrectIndices.map((index) => data[index].romaji),
+    ]);
+  } else {
+    options = shuffleOptions([
+      data[correctIndex].translation,
+      ...shuffledIncorrectIndices.map((index) => data[index].translation),
+    ]);
+}
 
   setCurrentIndex(correctIndex);
   setOptions(options);
@@ -62,7 +74,7 @@ function createQuestion(data) {
 
   const handleAnswerClick = (selectedOption) => {
     let tempscore
-    if (selectedOption === kanjiData[currentIndex].translation) {
+    if (selectedOption === kanjiData[currentIndex].translation || selectedOption === kanjiData[currentIndex].romaji) {
       setWasCorrect(true);
       setScore(score + 1);
       tempscore = score + 1
@@ -110,7 +122,7 @@ function createQuestion(data) {
           onGameOver();
           setCurrentGameLevel(gameLevel + 1)
       } 
-    }, 250);
+    }, mode == 'Zen Mode' ? ZEN_TIMEOUT_TIME : WOW_TIMEOUT_TIME);
     }
   };
 
