@@ -1,6 +1,7 @@
 /* ChatGPT Ref: ./src/App.js */
-import React, { useState } from 'react';
+import React, { useState }  from 'react';
 import { Splash, GameOver, KanjiGame } from './components';
+
 
 import './App.css';
 function App() {
@@ -15,7 +16,7 @@ function App() {
       {showSplash ? (
         <Splash onContinue={handleContinue} />
       ) : (
-        <KanjiGame onContinue={handleContinue} />
+        <KanjiGame onContinue={handleContinue}  />
       )}
     </div>
   );

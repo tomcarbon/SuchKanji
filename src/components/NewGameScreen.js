@@ -4,13 +4,13 @@ import KanjiDisplay from './KanjiDisplay';
 import KanjiAnswerButtons from './KanjiAnswerButtons';
 import KanjiControls from './KanjiControls';
 import kanjiData from './kanjiData';
-import {PlaySound, stopSounds, stopSound} from '../common/Sounds';
+import {playSound, stopSounds, stopSound} from '../common/Sounds';
 import CountdownTimer from './CountdownTimer';
 
 
 const TIMEOUT_TIME = 500
 
-const NewGameScreen = ({ selectedDifficulty, onContinue, onGameOver, score, setScore, resetGame, optionsCount, onNewGame }) => {
+const NewGameScreen = ({ selectedDifficulty, onContinue, onGameOver, score, setScore, resetGame, optionsCount, onNewGame, isMuted }) => {
 
   const [questionCount, setQuestionCount] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -20,7 +20,6 @@ const NewGameScreen = ({ selectedDifficulty, onContinue, onGameOver, score, setS
   const [gameOver, setGameOver] = useState(false);
   const [gameLevel, setCurrentGameLevel] = useState(1);
   const [options, setOptions] = useState([]);
-  const isMuted = localStorage.getItem('isMuted') || "false"
 
   const mode = localStorage.getItem('mode') || "Zen Mode"
 
@@ -70,19 +69,19 @@ function createQuestion(data) {
 
       if (mode == "Wow Mode") {
         if (score < 9) {
-          PlaySound("goodBeep.mp3")
+          playSound("goodBeep.mp3", isMuted)
         }
         else {
-          PlaySound("goodWin1.mp3") // got all 10 right
+          playSound("goodWin1.mp3", isMuted) // got all 10 right
         }
       } else if (mode == "Zen Mode") {
         const stg = `zenGood0${score}.mp3`; // last one is special if all 10 are right
-        PlaySound(stg)
+        playSound(stg, isMuted)
       }
     } else {
       setWasCorrect(false);
       tempscore = score
-      PlaySound("frogCroak.mp3")
+      playSound("frogCroak.mp3", isMuted)
 
     }
 

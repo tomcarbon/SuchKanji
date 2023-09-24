@@ -10,7 +10,7 @@ import SettingsScreen from './SettingsScreen';
 import AboutScreen from './AboutScreen';
 import GameOver from './GameOver';
 import kanjiData from './kanjiData'; // Add this import statement
-import {PlaySound, stopSounds, stopSound} from '../common/Sounds';
+import {playSound, stopSounds, stopSound} from '../common/Sounds';
 
 const KanjiGame = ({ onContinue }) => {
   const [activeScreen, setActiveScreen] = useState('');
@@ -24,7 +24,7 @@ const KanjiGame = ({ onContinue }) => {
   const [difficulty, setDifficulty] = useState(localStorage.getItem('difficulty') || 'easy');
   const [currentBackground, setCurrentBackground] = useState(backgroundImages[0]);
   const [mode, setMode] = useState(localStorage.getItem('mode') || 'Zen Mode');
-  const [isMuted, setIsMuted] = useState(false);  // if true, no sound
+  const [isMuted, setIsMuted] = useState(true)
 
 
  function changeBackground (index)  {
@@ -43,11 +43,11 @@ const handleNewGameClick = () => {
   if (mode == "Wow Mode") {
     console.info("wow mode")
       changeBackground(5);
-      PlaySound("timerSong001.mp3")
+      playSound("timerSong001.mp3", isMuted)
   } else {
     console.info("zen mode")
       changeBackground(getRandomInt(1,42));
-//        playSound("zen1.mp3")
+//        playSound("zen1.mp3", isMuted)
   }
   setScore(0);
   setQuestionCount(0);
@@ -138,7 +138,7 @@ const handleNewGameClick = () => {
   return (
     <div className="kanjigame-container" style={{ backgroundImage: `url(${currentBackground})` }}>
 
-      <Menu onScreenChange={handleScreenChange} setScore={setScore} />
+      <Menu onScreenChange={handleScreenChange} setScore={setScore} isMuted={isMuted} setIsMuted={setIsMuted} />
       <div className="kanjigame-content">
         <div className="white-rectangle">
           {gameOver ? (
@@ -147,7 +147,6 @@ const handleNewGameClick = () => {
             <>
               {activeScreen === 'newGame' && (
                 <NewGameScreen
-                  isMuted={isMuted}
                   onContinue={onContinue}
                   onGameOver={() => setGameOver(true)}
                   score={score}
@@ -156,6 +155,7 @@ const handleNewGameClick = () => {
                   optionsCount={optionsCount} 
                   selectedDifficulty={difficulty} 
                   onNewGame={handleNewGameClick}
+                  isMuted={isMuted}
                 />
               )}
               {activeScreen === 'history' && <HistoryScreen onContinue={onContinue} />}
