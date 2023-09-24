@@ -100,7 +100,7 @@ const soundGW1 = new Howl({
     preload: true
 });
 
-export function playSound(frog) {
+export function PlaySound(frog) {
   switch (frog) {
     case  'goodBeep.mp3':
         sound1.play();
@@ -232,4 +232,4 @@ export function stopSound(frog) {
 }
 
 
-export default {playSound, stopSounds, stopSound}
+export default {PlaySound, stopSounds, stopSound}

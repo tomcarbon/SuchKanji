@@ -26,8 +26,8 @@ add_identification_comment() {
 
 # Check command line options
 if [[ $1 == "--react" ]]; then
-  # Find all js and css files in the . directory (including /src and subdirectories)
-  file_list=$(find ./src -type f \( -name "*.js" -o -name "*.css" \))
+  # Find all js and css files in the . directory (including /src and subdirectories), excluding node_modules
+  file_list=$(find ./src -path ./src/node_modules -prune -o -type f \( -name "*.js" -o -name "*.css" \) -print)
 elif [[ $1 == "--file_list" ]]; then
   shift
   file_list="$@"
@@ -54,11 +54,10 @@ concatenated_output=$(cat $file_list)
 output_text_file="output.txt"
 echo -e "Directory Tree:\n" >"$output_text_file"
 if [[ $1 == "--react" ]]; then
-  find ./src -type d -print | sed -e 's/[^-][^\/]*\//  |/g' -e 's/|\([^ ]\)/|-\1/' >>"$output_text_file"
+  find ./src -path ./src/node_modules -prune -o -type d -print | sed -e 's/[^-][^\/]*\//  |/g' -e 's/|\([^ ]\)/|-\1/' >>"$output_text_file"
 else
   find . -type d -print | sed -e 's/[^-][^\/]*\//  |/g' -e 's/|\([^ ]\)/|-\1/' >>"$output_text_file"
 fi
 echo -e "\nConcatenated Output:\n\n$concatenated_output" >>"$output_text_file"
 
 echo "Identification comments added to files. Output files created: $output_file, $output_text_file"
-

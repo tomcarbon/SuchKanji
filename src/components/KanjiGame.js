@@ -1,7 +1,7 @@
 /* ChatGPT Ref: ./src/components/KanjiGame.js */
 import React, { useState, useEffect } from 'react';
 import '../css/KanjiGame.css';
-import backgroundImages from './backgroundImages';
+import backgroundImages from '../common/backgroundImages';
 import foo from '../images/background009.jpg';
 import Menu from './Menu';
 import NewGameScreen from './NewGameScreen';
@@ -10,7 +10,7 @@ import SettingsScreen from './SettingsScreen';
 import AboutScreen from './AboutScreen';
 import GameOver from './GameOver';
 import kanjiData from './kanjiData'; // Add this import statement
-import {playSound, stopSounds, stopSound} from '../common/Sounds';
+import {PlaySound, stopSounds, stopSound} from '../common/Sounds';
 
 const KanjiGame = ({ onContinue }) => {
   const [activeScreen, setActiveScreen] = useState('');
@@ -24,6 +24,7 @@ const KanjiGame = ({ onContinue }) => {
   const [difficulty, setDifficulty] = useState(localStorage.getItem('difficulty') || 'easy');
   const [currentBackground, setCurrentBackground] = useState(backgroundImages[0]);
   const [mode, setMode] = useState(localStorage.getItem('mode') || 'Zen Mode');
+  const [isMuted, setIsMuted] = useState(false);  // if true, no sound
 
 
  function changeBackground (index)  {
@@ -42,10 +43,10 @@ const handleNewGameClick = () => {
   if (mode == "Wow Mode") {
     console.info("wow mode")
       changeBackground(5);
-      playSound("timerSong001.mp3")
+      PlaySound("timerSong001.mp3")
   } else {
     console.info("zen mode")
-      changeBackground(getRandomInt(0,29));
+      changeBackground(getRandomInt(1,42));
 //        playSound("zen1.mp3")
   }
   setScore(0);
@@ -146,6 +147,7 @@ const handleNewGameClick = () => {
             <>
               {activeScreen === 'newGame' && (
                 <NewGameScreen
+                  isMuted={isMuted}
                   onContinue={onContinue}
                   onGameOver={() => setGameOver(true)}
                   score={score}

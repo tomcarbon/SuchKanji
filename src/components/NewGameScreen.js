@@ -4,7 +4,7 @@ import KanjiDisplay from './KanjiDisplay';
 import KanjiAnswerButtons from './KanjiAnswerButtons';
 import KanjiControls from './KanjiControls';
 import kanjiData from './kanjiData';
-import {playSound, stopSounds, stopSound} from '../common/Sounds';
+import {PlaySound, stopSounds, stopSound} from '../common/Sounds';
 import CountdownTimer from './CountdownTimer';
 
 
@@ -20,6 +20,7 @@ const NewGameScreen = ({ selectedDifficulty, onContinue, onGameOver, score, setS
   const [gameOver, setGameOver] = useState(false);
   const [gameLevel, setCurrentGameLevel] = useState(1);
   const [options, setOptions] = useState([]);
+  const isMuted = localStorage.getItem('isMuted') || "false"
 
   const mode = localStorage.getItem('mode') || "Zen Mode"
 
@@ -69,19 +70,20 @@ function createQuestion(data) {
 
       if (mode == "Wow Mode") {
         if (score < 9) {
-          playSound("goodBeep.mp3")
+          PlaySound("goodBeep.mp3")
         }
         else {
-          playSound("goodWin1.mp3") // got all 10 right
+          PlaySound("goodWin1.mp3") // got all 10 right
         }
       } else if (mode == "Zen Mode") {
         const stg = `zenGood0${score}.mp3`; // last one is special if all 10 are right
-        playSound(stg);
+        PlaySound(stg)
       }
     } else {
       setWasCorrect(false);
       tempscore = score
-      playSound("frogCroak.mp3")
+      PlaySound("frogCroak.mp3")
+
     }
 
     setLastIndex(currentIndex)

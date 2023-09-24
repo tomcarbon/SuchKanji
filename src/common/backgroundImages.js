@@ -29,6 +29,18 @@ import wowbackground027 from        "../images/background027.jpg";
 import wowbackground028 from        "../images/background028.jpg";
 import wowbackground029 from        "../images/background029.png";
 import wowbackground030 from        "../images/background030.png";
+import wowbackground031 from        "../images/background031.jpg";
+import wowbackground032 from        "../images/background032.png";
+import wowbackground033 from        "../images/background033.jpg";
+import wowbackground034 from        "../images/background034.png";
+import wowbackground035 from        "../images/background035.jpg";
+import wowbackground036 from        "../images/background036.png";
+import wowbackground037 from        "../images/background037.jpg";
+import wowbackground038 from        "../images/background038.png";
+import wowbackground039 from        "../images/background039.jpg";
+import wowbackground040 from        "../images/background040.png";
+import wowbackground041 from        "../images/background041.png";
+import wowbackground042 from        "../images/background042.jpg";
 
 export default [
     wowbackground001, 
@@ -60,5 +72,17 @@ export default [
     wowbackground027, 
     wowbackground028, 
     wowbackground029, 
-    wowbackground030
+    wowbackground030,
+    wowbackground031, 
+    wowbackground032, 
+    wowbackground033, 
+    wowbackground034, 
+    wowbackground035, 
+    wowbackground036, 
+    wowbackground037, 
+    wowbackground038, 
+    wowbackground039, 
+    wowbackground040,
+    wowbackground041, 
+    wowbackground042,
 ]

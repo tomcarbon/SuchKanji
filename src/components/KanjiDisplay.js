@@ -4,7 +4,7 @@ import '../css/KanjiDisplay.css';
 import kanjiData from './kanjiData';
 
 const KanjiDisplay = ({ wasCorrect, currentIndex, lastIndex, showTranslation }) => {
-  console.log(`KanjiDisplay.js: wasCorrect = ${wasCorrect}, currentIndex = ${currentIndex}, lastIndex = ${lastIndex}, showLastTranslation = ${showTranslation}`)
+//  console.log(`KanjiDisplay.js: wasCorrect = ${wasCorrect}, currentIndex = ${currentIndex}, lastIndex = ${lastIndex}, showLastTranslation = ${showTranslation}`)
   const kanji = kanjiData[currentIndex].kanji;
   const translation = kanjiData[lastIndex].translation;
 
