@@ -25,7 +25,33 @@ const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
   return (
     <div>
       <h1>SETTINGS SCREEN</h1>
-      <div className='settings-screen-difficulty'>
+     <div className='settings-screen-mode'>
+        <h3>Mode</h3>
+        <hr></hr>
+        <div>
+          <input
+            type="radio"
+            id="zenMode"
+            name="mode"
+            value="Zen Mode"
+            checked={mode === 'Zen Mode'}
+            onChange={handleModeChange}
+          />
+          <label htmlFor="zenMode">Zen Mode</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            id="wowMode"
+            name="mode"
+            value="Wow Mode"
+            checked={mode === 'Wow Mode'}
+            onChange={handleModeChange}
+          />
+          <label htmlFor="wowMode">Wow Mode</label>
+        </div>
+      </div>
+       <div className='settings-screen-difficulty'>
         <h3>Difficulty</h3>
         <hr></hr>
         <div>
@@ -62,31 +88,26 @@ const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
           <label htmlFor="difficult">Difficult</label>
         </div>
       </div>
-      <div className='settings-screen-mode'>
-        <h3>Mode</h3>
-        <hr></hr>
-        <div>
-          <input
-            type="radio"
-            id="zenMode"
-            name="mode"
-            value="Zen Mode"
-            checked={mode === 'Zen Mode'}
-            onChange={handleModeChange}
-          />
-          <label htmlFor="zenMode">Zen Mode</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            id="wowMode"
-            name="mode"
-            value="Wow Mode"
-            checked={mode === 'Wow Mode'}
-            onChange={handleModeChange}
-          />
-          <label htmlFor="wowMode">Wow Mode</label>
-        </div>
+
+       <div className='settings-screen-kanjiset'>
+        <h3>Selected Kanji Data Sets</h3>
+
+        <h4>Free</h4>
+
+        <p>Verb Pack 1 (50)</p>
+        <p>Verb Pack 2 (50)</p>
+        <p>JLPT N5</p>
+        <p>Assorted 100 (100)</p>
+
+        <h4>SKC Such Kanji Club</h4>
+        <p>JLPT N4</p>
+        <p>JLPT N3</p>
+        <p>JLPT N2</p>
+        <p>Verb Pack 3 (50)</p>
+        <p>Verb Pack 4 (50)</p>
+        <p>Verb Pack 5 (50)</p>
+        <p>Verb Pack 6 (50)</p>
+
       </div>
     </div>
   );

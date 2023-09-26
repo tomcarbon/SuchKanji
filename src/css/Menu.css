@@ -34,16 +34,27 @@
   margin: 10px;
   background: linear-gradient(135deg, #8a4fff, #4c00e6);
   color: white;
-  border: none;
   border-radius: 15px;
   cursor: pointer;
   transition: background 0.3s ease;
   height: 60px; 
   line-height: 40px; 
   font-size: 30px;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #00008b;
+  border-right-color: #00aaaa;
+  border-top-color: transparent;
+  outline: none;
 }
 .menu-button:hover {
   background: linear-gradient(135deg, #a470ff, #5d1ad6);
+}
+
+.menu-button:active {
+  border-bottom-color: transparent;
+  border-right-color: #002222;
+  border-left-color: transparent;
 }
 
 .rainbow-title {

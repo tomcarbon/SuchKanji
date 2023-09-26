@@ -6,15 +6,22 @@
 }
 
 .settings-screen-difficulty {
-  width: 50%;
+  width: 100%;
   color: darkred;
   background-color: white;
   font-size: 30px;
 }
 
 .settings-screen-mode {
-  width: 49%;
+  width: 100%;
   color: burlywood;
+  background-color: white;
+  font-size: 30px;
+}
+
+.settings-screen-kanjiset {
+  width: 100%;
+  color: darkblue;
   background-color: white;
   font-size: 30px;
 }
