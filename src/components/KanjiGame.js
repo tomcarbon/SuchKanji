@@ -30,6 +30,7 @@ const KanjiGame = ({ onContinue }) => {
  function changeBackground (index)  {
 //    setCurrentBackground(backgroundImages[index]);
     setCurrentBackground(backgroundImages[index])
+    console.info(`changeBackground set to index = ${index}`)
 //    alert(`changeBackground(${index} for '${backgroundImages[index]}'}). currentBackground = '${currentBackground}`)
   };
 

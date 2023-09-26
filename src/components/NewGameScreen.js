@@ -8,7 +8,7 @@ import {playSound, stopSounds, stopSound} from '../common/Sounds';
 import CountdownTimer from './CountdownTimer';
 
 
-const ZEN_TIMEOUT_TIME = 1000
+const ZEN_TIMEOUT_TIME = 1250
 const WOW_TIMEOUT_TIME = 250
 
 const NewGameScreen = ({ selectedDifficulty, onContinue, onGameOver, score, setScore, resetGame, optionsCount, onNewGame, isMuted }) => {
