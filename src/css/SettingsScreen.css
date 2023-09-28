@@ -49,7 +49,7 @@ button:hover {
 }
 
 .settings-screen-mode {
-  color: #BBA64D;
+  color: #000;
 }
 
 .settings-screen-kanjiset {
@@ -78,6 +78,7 @@ input[type="checkbox"] {
 
 .members-only {
   border-radius: 5px;
+  width: 30%;
   background-color: rgba(255,0,0,0.3); /* white background with 70% opacity */
   position: relative; /* Set position to relative so that the ::before pseudo-element is relative to this element */
   pointer-events: none; /* Disable all click, state and cursor options */

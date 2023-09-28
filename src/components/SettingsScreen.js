@@ -81,6 +81,21 @@ const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
           />
           <label htmlFor="wowMode">Wow Mode</label>
         </div>
+        <div>
+          <div className="members-only">
+            <input
+              type="radio"
+              id="arcadeMode"
+              name="mode"
+              value="Arcade Mode"
+              checked={mode === 'Arcade Mode'}
+              onChange={handleModeChange}
+            />
+          <label htmlFor="wowMode">Arcade Mode</label>
+          </div>
+        </div>
+
+
       </div>
        <div className='settings-screen-difficulty'>
         <h3>Difficulty</h3>

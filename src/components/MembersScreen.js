@@ -12,7 +12,9 @@ const MembersScreen = () => {
       <hr />
       <h3>2. Sign in</h3>
       <hr />
-      <h3>3. Perks of Membership:</h3>
+      <h3>3. Connect with Friends</h3>
+      <hr />
+      <h3>4. Perks of Membership:</h3>
       <h5> a) Unlimited access to all Kanji Data vocabulary sets.</h5>
       <h5> b) Video Game / High Score Mode is enabled.</h5>
       <h5> c) Mailing List/Updates</h5>
