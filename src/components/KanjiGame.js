@@ -8,6 +8,7 @@ import NewGameScreen from './NewGameScreen';
 import HistoryScreen from './HistoryScreen';
 import SettingsScreen from './SettingsScreen';
 import AboutScreen from './AboutScreen';
+import MembersScreen from './MembersScreen';
 import GameOver from './GameOver';
 import kanjiData from './kanjiData'; // Add this import statement
 import {playSound, stopSounds, stopSound} from '../common/Sounds';
@@ -162,6 +163,7 @@ const handleNewGameClick = () => {
               {activeScreen === 'history' && <HistoryScreen onContinue={onContinue} />}
               {activeScreen === 'settings' && <SettingsScreen onDifficultyChange={handleDifficultyChange} onContinue={onContinue} />}
               {activeScreen === 'about' && <AboutScreen onContinue={onContinue} />}
+              {activeScreen === 'members' && <MembersScreen onContinue={onContinue} />}
             </>
           )}
         </div>
