@@ -1,27 +1,68 @@
-/* ChatGPT Ref: ./src/css/SettingsScreen.css */
 .settings-screen {
   height: 100%;
   overflow: auto;
+  text-align: left;
   padding: 0 5%;
+  font-family: 'Arial', sans-serif;
+  background-color: #F2F2F7;
+}
+
+h1 {
+  font-size: 2.5em;
+  color: #6C757D;
+}
+
+h3 {
+  color: #6C757D;
+}
+
+h4 {
+  color: #495057;
+}
+
+button {
+  background-color: #A3B1F6;
+  border: none;
+  padding: 5px 10px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius:  5px;
+}
+
+button:hover {
+  background-color: #8D99AE;
+}
+
+.settings-screen-difficulty,
+.settings-screen-mode,
+.settings-screen-kanjiset {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .settings-screen-difficulty {
-  width: 100%;
-  color: darkred;
-  background-color: white;
-  font-size: 30px;
+  color: #FF6B6B;
 }
 
 .settings-screen-mode {
-  width: 100%;
-  color: burlywood;
-  background-color: white;
-  font-size: 30px;
+  color: #BBA64D;
 }
 
 .settings-screen-kanjiset {
-  width: 100%;
-  color: darkblue;
-  background-color: white;
-  font-size: 30px;
+  color: #4ECDC4;
+}
+
+.kanji-group {
+  margin-top: 10px;
+}
+
+.kanji-group div {
+  margin-top: 5px;
+}
+
+input[type="checkbox"] {
+  margin-right: 5px;
 }

@@ -1,10 +1,38 @@
-/* ChatGPT Ref: ./src/components/SettingsScreen.js */
+/* ChatGPT Ref: components/SettingsScreen.js */
 import React, { useState } from 'react';
 import '../css/SettingsScreen.css';
 
 const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
     const [difficulty, setDifficulty] = useState(localStorage.getItem('difficulty') || 'easy');
     const [mode, setMode] = useState(localStorage.getItem('mode') || 'Zen Mode');
+
+    const [freePacks, setFreePacks] = useState({
+        verbPack1: false,
+        verbPack2: false,
+        nounPack1: false,
+        nounPack2: false,
+        assorted1: false,
+        assorted2: false,
+        jlptN5: false
+    });
+    
+    const [memberPacks, setMemberPacks] = useState({
+        verbPack3:      false,
+        verbPack4:      false,
+        verbPack5:      false,
+        verbPack6:      false,
+        jlptN4:         false,
+        jlptN3:         false,
+        jlptN2:         false,
+        nounPack3:      false,
+        nounPack4:      false
+    });
+
+  const toggleAll = (setPackState, currentPackState, allSelected) => {
+      const newState = {};
+      for (const pack in currentPackState) newState[pack] = !allSelected;
+      setPackState(newState);
+  };
 
   const handleDifficultyChange = (event) => {
     const selectedDifficulty = event.target.value;
@@ -23,8 +51,10 @@ const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
   };
 
   return (
-    <div>
+    <div className='settings-screen'>
       <h1>SETTINGS SCREEN</h1>
+      <div> 
+
      <div className='settings-screen-mode'>
         <h3>Mode</h3>
         <hr></hr>
@@ -88,29 +118,35 @@ const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
           <label htmlFor="difficult">Difficult</label>
         </div>
       </div>
-
-       <div className='settings-screen-kanjiset'>
-        <h3>Selected Kanji Data Sets</h3>
-
-        <h4>Free</h4>
-
-        <p>Verb Pack 1 (50)</p>
-        <p>Verb Pack 2 (50)</p>
-        <p>JLPT N5</p>
-        <p>Assorted 100 (100)</p>
-
-        <h4>SKC Such Kanji Club</h4>
-        <p>JLPT N4</p>
-        <p>JLPT N3</p>
-        <p>JLPT N2</p>
-        <p>Verb Pack 3 (50)</p>
-        <p>Verb Pack 4 (50)</p>
-        <p>Verb Pack 5 (50)</p>
-        <p>Verb Pack 6 (50)</p>
-
       </div>
-    </div>
-  );
+
+           <div className='settings-screen-kanjiset'>
+                <h3>Selected Kanji Data Sets</h3>
+                
+                <div className="kanji-group">
+                    <h4>Free</h4>
+                    <button onClick={() => toggleAll(setFreePacks, freePacks, Object.values(freePacks).every(val => val))}>Select All / Clear</button>
+                    {Object.entries(freePacks).map(([key, value]) => (
+                        <div key={key}>
+                            <input type="checkbox" id={key} checked={value} onChange={() => setFreePacks({...freePacks, [key]: !value})} />
+                            <label htmlFor={key}>{key.replace(/([A-Z])/g, ' $1')} (50)</label>
+                        </div>
+                    ))}
+                </div>
+                
+                <div className="kanji-group">
+                    <h4>SKC Such Kanji Club - become a member for 20 dogecoin!</h4>
+                    <button onClick={() => toggleAll(setMemberPacks, memberPacks, Object.values(memberPacks).every(val => val))}>Select All / Clear</button>
+                    {Object.entries(memberPacks).map(([key, value]) => (
+                        <div key={key}>
+                            <input type="checkbox" id={key} checked={value} onChange={() => setMemberPacks({...memberPacks, [key]: !value})} />
+                            <label htmlFor={key}>{key.replace(/([A-Z])/g, ' $1')}</label>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default SettingsScreen;
