@@ -1,3 +1,4 @@
+/* ChatGPT Ref: css/SettingsScreen.css */
 .settings-screen {
   height: 100%;
   overflow: auto;
@@ -52,7 +53,8 @@ button:hover {
 }
 
 .settings-screen-kanjiset {
-  color: #4ECDC4;
+  color: #1EAD84;
+  font-weight: 700;
 }
 
 .kanji-group {
@@ -65,4 +67,31 @@ button:hover {
 
 input[type="checkbox"] {
   margin-right: 5px;
+}
+
+.settings-screen-f11 {
+  position: absolute;
+  right:  10%;
+  top: 5px;
+  color: darkred;
+}
+
+.members-only {
+  border-radius: 5px;
+  background-color: rgba(255,0,0,0.3); /* white background with 70% opacity */
+  position: relative; /* Set position to relative so that the ::before pseudo-element is relative to this element */
+  pointer-events: none; /* Disable all click, state and cursor options */
+  cursor: not-allowed; /* Display a "not-allowed" cursor on hover */
+}
+
+.members-only::before {
+  content: ''; /* This is necessary for the pseudo-element to work */
+  display: block; 
+  position: absolute; /* Absolute position to the .members-only div */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(60deg, transparent 95%, rgba(255,255,255,0.3) 45%, rgba(255,255,255,0.3) 55%, transparent 55%, transparent), linear-gradient(-45deg, transparent 45%, rgba(255,255,255,0.5) 45%, rgba(255,255,255,0.5) 55%, transparent 55%, transparent);
+  background-size: 1rem 1rem;
 }

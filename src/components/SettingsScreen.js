@@ -57,6 +57,7 @@ const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
 
      <div className='settings-screen-mode'>
         <h3>Mode</h3>
+        <div className='settings-screen-f11'>try F11</div>
         <hr></hr>
         <div>
           <input
@@ -135,15 +136,18 @@ const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
                 </div>
                 
                 <div className="kanji-group">
-                    <h4>SKC Such Kanji Club - become a member for 20 dogecoin!</h4>
+                  <div className="members-only">
+                    <h4>SKC Such Kanji Club - become a member for 100 dogecoin per year!</h4>
                     <button onClick={() => toggleAll(setMemberPacks, memberPacks, Object.values(memberPacks).every(val => val))}>Select All / Clear</button>
                     {Object.entries(memberPacks).map(([key, value]) => (
                         <div key={key}>
                             <input type="checkbox" id={key} checked={value} onChange={() => setMemberPacks({...memberPacks, [key]: !value})} />
-                            <label htmlFor={key}>{key.replace(/([A-Z])/g, ' $1')}</label>
+                            <label htmlFor={key}>{key.replace(/([A-Z])/g, ' $1')} (50)</label>
                         </div>
                     ))}
+                  </div>
                 </div>
+
             </div>
         </div>
     );
