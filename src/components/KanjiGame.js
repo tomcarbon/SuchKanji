@@ -138,10 +138,13 @@ const handleNewGameClick = () => {
     setOptions(shuffleOptions(options));
   }
 
+  const firstLetterOfBackground = currentBackground.substring(currentBackground.lastIndexOf('/') + 1, currentBackground.lastIndexOf('.') )[0];
+
+
   return (
     <div className="kanjigame-container" style={{ backgroundImage: `url(${currentBackground})` }}>
 
-      <Menu onScreenChange={handleScreenChange} setScore={setScore} isMuted={isMuted} setIsMuted={setIsMuted} />
+      <Menu onScreenChange={handleScreenChange} setScore={setScore} isMuted={isMuted} setIsMuted={setIsMuted} firstLetterOfBackground={firstLetterOfBackground} />
       <div className="kanjigame-content">
         <div className="white-rectangle">
           {gameOver ? (

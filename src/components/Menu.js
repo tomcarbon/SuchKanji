@@ -6,9 +6,11 @@ import soundIconOFF from '../images/soundOFF.png';
 import {playSound, stopSounds, stopSound} from '../common/Sounds';
 import '../css/Menu.css';
 
-const Menu = ({ onScreenChange, setScore, isMuted, setIsMuted }) => {
+const Menu = ({ onScreenChange, setScore, isMuted, setIsMuted, firstLetterOfBackground  }) => {
   const [rainbowMode, setRainbowMode] = useState(false);
   const [logoMove, setLogoMove] = useState(false);
+
+  const shouldShowLogo = firstLetterOfBackground.toLowerCase() == 'd';
 
   const handleIsMutedButtonClick = () => {
     stopSounds();
@@ -42,10 +44,12 @@ const Menu = ({ onScreenChange, setScore, isMuted, setIsMuted }) => {
 
   return (
     <div className="menu-container">
-      <div className={`logo-container ${logoMove ? 'logo-move' : ''}`} onAnimationEnd={() => setLogoMove(false)} >
-        <img src={logo} alt="Logo" className="logo" />
-      </div>
-      <h2 className={rainbowMode ? 'rainbow-title' : ''}>Such Kanji!</h2>
+      {shouldShowLogo && (
+        <div className={`logo-container ${logoMove ? 'logo-move' : ''}`} onAnimationEnd={() => setLogoMove(false)}>
+          <img src={logo} alt="Logo" className="logo" />
+        </div>
+      )}
+      <h2 className={'rainbow-title'}>Such Kanji!</h2>
       <button className="menu-button" onClick={handleNewGameButtonClick}>
         Play
       </button>
@@ -67,3 +71,8 @@ const Menu = ({ onScreenChange, setScore, isMuted, setIsMuted }) => {
 };
 
 export default Menu;
+
+/*
+
+      <h2 className={rainbowMode ? 'rainbow-title' : ''}>Such Kanji!</h2>
+*/
