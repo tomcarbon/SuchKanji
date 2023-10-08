@@ -13,7 +13,7 @@ const HistoryScreen = () => {
 
   return (
     <div>
-      <h1>HISTORY SCREEN</h1>
+      <h1>HISTORY</h1>
 
       <ul className="game-history-list">
         {gameHistory.map((game, index) => (

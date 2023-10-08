@@ -1,4 +1,4 @@
-/* ChatGPT Ref: ./src/components/Menu.js */
+/* ChatGPT Ref: components/Menu.js */
 import React, { useState} from 'react';
 import logo from '../images/logo.png';
 import soundIconON from '../images/soundON.png';
@@ -12,8 +12,8 @@ const Menu = ({ onScreenChange, setScore, isMuted, setIsMuted }) => {
 
   const handleIsMutedButtonClick = () => {
     stopSounds();
-    setIsMuted(!isMuted)
-//    console.info(`Menu->handleIsMutedButtonClock isMuted = ${isMuted}`)
+    setIsMuted(!isMuted);
+    localStorage.setItem('isMuted', !isMuted ? '1' : '0');
   };
 
   const handleAboutButtonClick = () => {

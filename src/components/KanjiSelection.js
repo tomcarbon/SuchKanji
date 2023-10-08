@@ -1,3 +1,4 @@
+/* ChatGPT Ref: ./src/components/KanjiSelection.js */
 import React from 'react';
 
 const KanjiSelection = () => {

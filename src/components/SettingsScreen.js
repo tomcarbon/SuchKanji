@@ -1,4 +1,4 @@
-/* ChatGPT Ref: components/SettingsScreen.js */
+/* ChatGPT Ref: ./src/components/SettingsScreen.js */
 import React, { useState } from 'react';
 import '../css/SettingsScreen.css';
 

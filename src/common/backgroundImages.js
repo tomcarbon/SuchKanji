@@ -1,4 +1,4 @@
-/* ChatGPT Ref: ./src/components/backgroundImages.js */
+/* ChatGPT Ref: ./src/common/backgroundImages.js */
 import wowbackground001 from        "../images/background001.jpg";
 import wowbackground002 from        "../images/background002.png";
 import wowbackground003 from        "../images/background003.jpg";

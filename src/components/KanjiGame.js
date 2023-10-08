@@ -1,4 +1,4 @@
-/* ChatGPT Ref: ./src/components/KanjiGame.js */
+/* ChatGPT Ref: components/KanjiGame.js */
 import React, { useState, useEffect } from 'react';
 import '../css/KanjiGame.css';
 import backgroundImages from '../common/backgroundImages';
@@ -25,7 +25,8 @@ const KanjiGame = ({ onContinue }) => {
   const [difficulty, setDifficulty] = useState(localStorage.getItem('difficulty') || 'easy');
   const [currentBackground, setCurrentBackground] = useState(backgroundImages[0]);
   const [mode, setMode] = useState(localStorage.getItem('mode') || 'Zen Mode');
-  const [isMuted, setIsMuted] = useState(true)
+  const initialIsMuted = localStorage.getItem('isMuted') === '1';
+  const [isMuted, setIsMuted] = useState(initialIsMuted);
 
 
  function changeBackground (index)  {

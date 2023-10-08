@@ -1,4 +1,4 @@
-/* ChatGPT Ref: ./src/components/GameOver.js */
+/* ChatGPT Ref: components/GameOver.js */
 
 import React from 'react';
 import '../css/GameOver.css';

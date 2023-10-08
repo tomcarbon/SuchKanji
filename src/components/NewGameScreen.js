@@ -1,4 +1,4 @@
-/* ChatGPT Ref: ./src/components/NewGameScreen.js */
+/* ChatGPT Ref: components/NewGameScreen.js */
 import React, { useState, useEffect } from 'react';
 import KanjiDisplay from './KanjiDisplay';
 import KanjiAnswerButtons from './KanjiAnswerButtons';
