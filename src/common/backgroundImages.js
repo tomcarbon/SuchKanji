@@ -41,6 +41,7 @@ import wowbackground039 from        "../images/Dbackground039.jpg";
 import wowbackground040 from        "../images/Dbackground040.png";
 import wowbackground041 from        "../images/Dbackground041.png";
 import wowbackground042 from        "../images/background042.jpg";
+import wowbackground043 from        "../images/background043.jpg";
 
 export default [
     wowbackground001, 
@@ -85,4 +86,5 @@ export default [
     wowbackground040,
     wowbackground041, 
     wowbackground042,
+    wowbackground043,
 ]

@@ -1,16 +1,26 @@
 /* ChatGPT Ref: components/GameOver.js */
 
-import React from 'react';
+import React, {useState} from 'react';
 import '../css/GameOver.css';
 import {stopSound} from '../common/Sounds';
 
 const GameOver = ({ score, startNewGame }) => {
-  const feedbackMessages = [
+const [mode, setMode] = useState(localStorage.getItem('mode') || 'Zen Mode');
+
+  const feedbackMessages_Wow = [
     "蛙",
     "猿",
     "イルカ",
     "柴犬!",
   ];
+  const feedbackMessages_Zen = [
+    "たぬき",
+    "鯉",
+    "鷹",
+    "龍"
+  ];
+
+  let feedbackMessages = mode == 'Zen Mode' ?  feedbackMessages_Zen : feedbackMessages_Wow;
 
   let feedbackMessage = feedbackMessages[0];
 

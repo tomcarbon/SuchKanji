@@ -50,6 +50,8 @@ const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
     window.location.reload();
   };
 
+  const isMember = true;
+
   return (
     <div className='settings-screen'>
       <h1>SETTINGS SCREEN</h1>
@@ -82,7 +84,7 @@ const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
           <label htmlFor="wowMode">Wow Mode</label>
         </div>
         <div>
-          <div className="members-only">
+          <div className={!isMember ? "members-only": {}}>
             <input
               type="radio"
               id="arcadeMode"
@@ -151,7 +153,7 @@ const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
                 </div>
                 
                 <div className="kanji-group">
-                  <div className="members-only">
+                  <div  className={!isMember ? "members-only": {}}>
                     <h4>SKC Such Kanji Club - become a member for 100 dogecoin per year!</h4>
                     <button onClick={() => toggleAll(setMemberPacks, memberPacks, Object.values(memberPacks).every(val => val))}>Select All / Clear</button>
                     {Object.entries(memberPacks).map(([key, value]) => (
