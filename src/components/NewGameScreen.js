@@ -21,11 +21,12 @@ const NewGameScreen = ({ selectedDifficulty, onContinue, onGameOver, score, setS
   const [gameOver, setGameOver] = useState(false);
   const [gameLevel, setCurrentGameLevel] = useState(1);
   const [options, setOptions] = useState([]);
-
+  const initialData = localStorage.getItem('combinedData');
+  const gameData = initialData ? JSON.parse(initialData) : kanjiData.kanjiData; // Fall back to default data
   const mode = localStorage.getItem('mode') || "Zen Mode"
 
   useEffect(() => {
-    createQuestion(kanjiData);
+    createQuestion(gameData);
     console.info("NGS.js: useEffect -> createQuestion")
   }, [questionCount]);
 
@@ -74,7 +75,7 @@ function createQuestion(data) {
 
   const handleAnswerClick = (selectedOption) => {
     let tempscore
-    if (selectedOption === kanjiData[currentIndex].translation || selectedOption === kanjiData[currentIndex].romaji) {
+    if (selectedOption === gameData[currentIndex].translation || selectedOption === gameData[currentIndex].romaji) {
       setWasCorrect(true);
       setScore(score + 1);
       tempscore = score + 1

@@ -13,6 +13,7 @@ import GameOver from './GameOver';
 import kanjiData from './kanjiData'; // Add this import statement
 import {playSound, stopSounds, stopSound} from '../common/Sounds';
 
+
 const KanjiGame = ({ onContinue }) => {
   const [activeScreen, setActiveScreen] = useState('');
   const [gameOver, setGameOver] = useState(false);     // TCCDEBUG want to make this true and New Game button simply shows game over screen 20230918 
@@ -27,6 +28,8 @@ const KanjiGame = ({ onContinue }) => {
   const [mode, setMode] = useState(localStorage.getItem('mode') || 'Zen Mode');
   const initialIsMuted = localStorage.getItem('isMuted') === '1';
   const [isMuted, setIsMuted] = useState(initialIsMuted);
+  const initialData = localStorage.getItem('combinedData');
+  const gameData = initialData ? JSON.parse(initialData) : kanjiData.kanjiData; // Fall back to default data
 
 
  function changeBackground (index)  {
@@ -55,7 +58,7 @@ const handleNewGameClick = () => {
   setScore(0);
   setQuestionCount(0);
   setGameOver(false);
-  createQuestion(kanjiData);
+  createQuestion(gameData);
 };
 
 
@@ -77,7 +80,7 @@ const handleNewGameClick = () => {
   };
 
   useEffect(() => {
-    createQuestion(kanjiData);
+    createQuestion(gameData);
   }, [questionCount]);
 
   const handleScreenChange = (screen) => {

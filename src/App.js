@@ -10,6 +10,7 @@ function App() {
   const handleContinue = () => {
     setShowSplash(false);
   };
+//        localStorage.setItem('combinedData', [])
 
   return (
     <div className="App">

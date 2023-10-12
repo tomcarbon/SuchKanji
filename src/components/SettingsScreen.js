@@ -1,19 +1,38 @@
 /* ChatGPT Ref: ./src/components/SettingsScreen.js */
 import React, { useState } from 'react';
 import '../css/SettingsScreen.css';
+import dataPacks from './kanjiData';
+
+
 
 const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
     const [difficulty, setDifficulty] = useState(localStorage.getItem('difficulty') || 'easy');
     const [mode, setMode] = useState(localStorage.getItem('mode') || 'Zen Mode');
+    const [selectedPacks, setSelectedPacks] = useState({});
+
+    console.log(dataPacks)
+    const handlePackChange = (event) => {
+      setSelectedPacks({
+          ...selectedPacks,
+          [event.target.name]: event.target.checked
+      });
+    };
+
+    const handleSave = () => {
+        const combinedData = [];
+        for (const pack in selectedPacks) {
+            if (selectedPacks[pack]) {
+                combinedData.push(...dataPacks.dataPacks[pack]);
+            }
+        }
+        localStorage.setItem('combinedData', JSON.stringify(combinedData));
+    };
 
     const [freePacks, setFreePacks] = useState({
         verbPack1: false,
         verbPack2: false,
         nounPack1: false,
         nounPack2: false,
-        assorted1: false,
-        assorted2: false,
-        jlptN5: false
     });
     
     const [memberPacks, setMemberPacks] = useState({
@@ -21,11 +40,10 @@ const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
         verbPack4:      false,
         verbPack5:      false,
         verbPack6:      false,
-        jlptN4:         false,
-        jlptN3:         false,
-        jlptN2:         false,
         nounPack3:      false,
-        nounPack4:      false
+        nounPack4:      false,
+        nounPack5:      false,
+        nounPack6:      false
     });
 
   const toggleAll = (setPackState, currentPackState, allSelected) => {
@@ -137,6 +155,25 @@ const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
         </div>
       </div>
       </div>
+
+          <div className='settings-screen-kanjiset'>
+            <h3>Selected Kanji Data Sets</h3>
+            <div>
+                {Object.keys(dataPacks.dataPacks).map((packName) => (
+                    <div key={packName}>
+                        <input
+                            type="checkbox"
+                            name={packName}
+                            checked={selectedPacks[packName] || false}
+                            onChange={handlePackChange}
+                        />
+                        <label>{packName}</label>
+                    </div>
+                ))}
+                <button onClick={handleSave}>Save</button>
+            </div>
+          </div>
+
 
            <div className='settings-screen-kanjiset'>
                 <h3>Selected Kanji Data Sets</h3>
