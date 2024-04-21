@@ -4,8 +4,11 @@ import '../css/KanjiDisplay.css';
 import kanjiData from './kanjiData';
 
 const KanjiDisplay = ({ wasCorrect, currentIndex, lastIndex, showTranslation }) => {
+  /* OLD for multi, before simplification 
   const initialData = localStorage.getItem('combinedData');
   const gameData = initialData ? JSON.parse(initialData) : kanjiData.kanjiData; // Fall back to default data
+  */
+  const gameData = kanjiData.kanjiData; // Fall back to default data - new simplified see KanjiDisplay.js for original
 //  console.log(`KanjiDisplay.js: wasCorrect = ${wasCorrect}, currentIndex = ${currentIndex}, lastIndex = ${lastIndex}, showLastTranslation = ${showTranslation}`)
   const kanji = gameData[currentIndex].kanji;
   const translation = gameData[lastIndex].translation;

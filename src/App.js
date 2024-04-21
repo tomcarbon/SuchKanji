@@ -10,12 +10,14 @@ function App() {
   const handleContinue = () => {
     setShowSplash(false);
   };
-//        localStorage.setItem('combinedData', [])
+
 
   return (
     <div className="App">
       {showSplash ? (
-        <Splash onContinue={handleContinue} />
+        <div>
+          <Splash onContinue={handleContinue} />
+        </div>
       ) : (
         <KanjiGame onContinue={handleContinue}  />
       )}

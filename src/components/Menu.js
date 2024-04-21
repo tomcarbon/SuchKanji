@@ -38,9 +38,6 @@ const Menu = ({ onScreenChange, setScore, isMuted, setIsMuted, firstLetterOfBack
     onScreenChange('history');
   };
 
-  const handleMembersButtonClick = () => {
-    onScreenChange('members');
-  };
 
   return (
     <div className="menu-container">
@@ -61,9 +58,6 @@ const Menu = ({ onScreenChange, setScore, isMuted, setIsMuted, firstLetterOfBack
       </button>
       <button className="menu-button" onClick={handleAboutButtonClick}>
         About
-      </button>
-      <button className="menu-button" onClick={handleMembersButtonClick}>
-        SKC
       </button>
       <img src={isMuted ? soundIconOFF  : soundIconON} alt="soundIcon" className="soundicon" onClick={handleIsMutedButtonClick} draggable={false} />
     </div>

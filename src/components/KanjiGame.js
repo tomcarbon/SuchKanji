@@ -8,7 +8,6 @@ import NewGameScreen from './NewGameScreen';
 import HistoryScreen from './HistoryScreen';
 import SettingsScreen from './SettingsScreen';
 import AboutScreen from './AboutScreen';
-import MembersScreen from './MembersScreen';
 import GameOver from './GameOver';
 import kanjiData from './kanjiData'; // Add this import statement
 import {playSound, stopSounds, stopSound} from '../common/Sounds';
@@ -28,9 +27,7 @@ const KanjiGame = ({ onContinue }) => {
   const [mode, setMode] = useState(localStorage.getItem('mode') || 'Zen Mode');
   const initialIsMuted = localStorage.getItem('isMuted') === '1';
   const [isMuted, setIsMuted] = useState(initialIsMuted);
-  const initialData = localStorage.getItem('combinedData');
-  const gameData = initialData ? JSON.parse(initialData) : kanjiData.kanjiData; // Fall back to default data
-
+  const gameData = kanjiData.kanjiData; // Fall back to default data - new simplified see KanjiDisplay.js for original
 
  function changeBackground (index)  {
 //    setCurrentBackground(backgroundImages[index]);
@@ -170,7 +167,6 @@ const handleNewGameClick = () => {
               {activeScreen === 'history' && <HistoryScreen onContinue={onContinue} />}
               {activeScreen === 'settings' && <SettingsScreen onDifficultyChange={handleDifficultyChange} onContinue={onContinue} />}
               {activeScreen === 'about' && <AboutScreen onContinue={onContinue} />}
-              {activeScreen === 'members' && <MembersScreen onContinue={onContinue} />}
             </>
           )}
         </div>

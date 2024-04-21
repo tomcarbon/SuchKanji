@@ -30,22 +30,9 @@ const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
 
     const [freePacks, setFreePacks] = useState({
         verbPack1: false,
-        verbPack2: false,
-        nounPack1: false,
-        nounPack2: false,
+        verbPack2: false
     });
     
-    const [memberPacks, setMemberPacks] = useState({
-        verbPack3:      false,
-        verbPack4:      false,
-        verbPack5:      false,
-        verbPack6:      false,
-        nounPack3:      false,
-        nounPack4:      false,
-        nounPack5:      false,
-        nounPack6:      false
-    });
-
   const toggleAll = (setPackState, currentPackState, allSelected) => {
       const newState = {};
       for (const pack in currentPackState) newState[pack] = !allSelected;
@@ -101,24 +88,11 @@ const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
           />
           <label htmlFor="wowMode">Wow Mode</label>
         </div>
-        <div>
-          <div className={!isMember ? "members-only": {}}>
-            <input
-              type="radio"
-              id="arcadeMode"
-              name="mode"
-              value="Arcade Mode"
-              checked={mode === 'Arcade Mode'}
-              onChange={handleModeChange}
-            />
-          <label htmlFor="wowMode">Arcade Mode</label>
-          </div>
-        </div>
 
 
       </div>
        <div className='settings-screen-difficulty'>
-        <h3>Difficulty</h3>
+        <h3>Zen Mode Difficulty</h3>
         <hr></hr>
         <div>
           <input
@@ -156,53 +130,6 @@ const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
       </div>
       </div>
 
-          <div className='settings-screen-kanjiset'>
-            <h3>Selected Kanji Data Sets</h3>
-            <div>
-                {Object.keys(dataPacks.dataPacks).map((packName) => (
-                    <div key={packName}>
-                        <input
-                            type="checkbox"
-                            name={packName}
-                            checked={selectedPacks[packName] || false}
-                            onChange={handlePackChange}
-                        />
-                        <label>{packName}</label>
-                    </div>
-                ))}
-                <button onClick={handleSave}>Save</button>
-            </div>
-          </div>
-
-
-           <div className='settings-screen-kanjiset'>
-                <h3>Selected Kanji Data Sets</h3>
-                
-                <div className="kanji-group">
-                    <h4>Free</h4>
-                    <button onClick={() => toggleAll(setFreePacks, freePacks, Object.values(freePacks).every(val => val))}>Select All / Clear</button>
-                    {Object.entries(freePacks).map(([key, value]) => (
-                        <div key={key}>
-                            <input type="checkbox" id={key} checked={value} onChange={() => setFreePacks({...freePacks, [key]: !value})} />
-                            <label htmlFor={key}>{key.replace(/([A-Z])/g, ' $1')} (50)</label>
-                        </div>
-                    ))}
-                </div>
-                
-                <div className="kanji-group">
-                  <div  className={!isMember ? "members-only": {}}>
-                    <h4>SKC Such Kanji Club - become a member for 100 dogecoin per year!</h4>
-                    <button onClick={() => toggleAll(setMemberPacks, memberPacks, Object.values(memberPacks).every(val => val))}>Select All / Clear</button>
-                    {Object.entries(memberPacks).map(([key, value]) => (
-                        <div key={key}>
-                            <input type="checkbox" id={key} checked={value} onChange={() => setMemberPacks({...memberPacks, [key]: !value})} />
-                            <label htmlFor={key}>{key.replace(/([A-Z])/g, ' $1')} (50)</label>
-                        </div>
-                    ))}
-                  </div>
-                </div>
-
-            </div>
         </div>
     );
 };

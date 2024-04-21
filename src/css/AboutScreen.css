@@ -1,4 +1,5 @@
 /* ChatGPT Ref: ./src/css/AboutScreen.css */
 .about-screen {
+  text-align: left;
   padding: 0 5%;
 }

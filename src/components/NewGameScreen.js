@@ -21,8 +21,7 @@ const NewGameScreen = ({ selectedDifficulty, onContinue, onGameOver, score, setS
   const [gameOver, setGameOver] = useState(false);
   const [gameLevel, setCurrentGameLevel] = useState(1);
   const [options, setOptions] = useState([]);
-  const initialData = localStorage.getItem('combinedData');
-  const gameData = initialData ? JSON.parse(initialData) : kanjiData.kanjiData; // Fall back to default data
+  const gameData = kanjiData.kanjiData; // Fall back to default data - new simplified see KanjiDisplay.js for original
   const mode = localStorage.getItem('mode') || "Zen Mode"
 
   useEffect(() => {
@@ -47,10 +46,12 @@ function createQuestion(data) {
 
   const getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+  }
+
   // Shuffle incorrect options
   const shuffledIncorrectIndices = shuffleOptions(incorrectIndices).slice(0, optionsCount - 1);
   let options;
+  /* OLD
   if (getRandomInt(0,1) == 0) {
     options = shuffleOptions([
       data[correctIndex].romaji,
@@ -61,7 +62,12 @@ function createQuestion(data) {
       data[correctIndex].translation,
       ...shuffledIncorrectIndices.map((index) => data[index].translation),
     ]);
-}
+  }
+   NEW: */
+    options = shuffleOptions([
+      data[correctIndex].translation,
+      ...shuffledIncorrectIndices.map((index) => data[index].translation),
+    ]);
 
   setCurrentIndex(correctIndex);
   setOptions(options);
@@ -102,7 +108,7 @@ function createQuestion(data) {
     setShowTranslation(true);
     {   // show the correct or incorrect answer for 250ms
     setTimeout(() => {
-          setShowTranslation(false);
+      setShowTranslation(false);
       setQuestionCount(questionCount + 1);
 
       if (questionCount === 9) {
