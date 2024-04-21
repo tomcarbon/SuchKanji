@@ -2,4 +2,38 @@
 .about-screen {
   text-align: left;
   padding: 0 5%;
+  overflow-y:   scroll;
+  height: 100%;
+}
+
+.kanji-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.kanji-item {
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.kanji {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.translation {
+  font-size: 16px;
+  color: #666;
+}
+
+.romaji {
+  font-size: 14px;
+  color: #888;
+  font-style: italic;
 }
