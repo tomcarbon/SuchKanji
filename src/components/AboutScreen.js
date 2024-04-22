@@ -9,9 +9,9 @@ const AboutScreen = () => {
       <hr />
       <h2>This game is loaded with top 100 common Kanji verbs.</h2>
       <h3>There are three different difficulty levels:</h3>
-      <p>Easy: 3 answers to choose from.</p>
-      <p>Medium: 5 answers to choose from.</p>
-      <p>Difficult: 20 answers to choose from.</p>
+      <p><strong>Easy</strong>: 3 answers to choose from.</p>
+      <p><strong>Medium</strong>: 5 answers to choose from.</p>
+      <p><strong>Difficult</strong>: 20 answers to choose from.</p>
       <h3>There are two modes - Zen Mode and Wow Mode:</h3>
       <p><strong>Zen Mode</strong>: there is no timer, no intense music, take your time, and relax...</p>
       <p><strong>Wow Mode</strong>: (no description given) Can you get 10/10 on Wow Mode Difficult?</p>
