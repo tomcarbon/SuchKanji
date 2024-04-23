@@ -92,7 +92,7 @@ const SettingsScreen = ({ onDifficultyChange, onContinue }) => {
 
       </div>
        <div className='settings-screen-difficulty'>
-        <h3>Zen Mode Difficulty</h3>
+        <h3>Difficulty</h3>
         <hr></hr>
         <div>
           <input
