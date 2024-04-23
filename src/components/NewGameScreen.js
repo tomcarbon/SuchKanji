@@ -81,7 +81,9 @@ function createQuestion(data) {
 
   const handleAnswerClick = (selectedOption) => {
     let tempscore
+    let answeredCorrectly
     if (selectedOption === gameData[currentIndex].translation || selectedOption === gameData[currentIndex].romaji) {
+      answeredCorrectly = true
       setWasCorrect(true);
       setScore(score + 1);
       tempscore = score + 1
@@ -98,10 +100,10 @@ function createQuestion(data) {
         playSound(stg, isMuted)
       }
     } else {
+      answeredCorrectly = false
       setWasCorrect(false);
       tempscore = score
       playSound("frogCroak.mp3", isMuted)
-
     }
 
     setLastIndex(currentIndex)
@@ -129,7 +131,7 @@ function createQuestion(data) {
           onGameOver();
           setCurrentGameLevel(gameLevel + 1)
       } 
-    }, mode == 'Zen Mode' ? ZEN_TIMEOUT_TIME : WOW_TIMEOUT_TIME);
+    }, mode == 'Zen Mode' ? (answeredCorrectly ? ZEN_TIMEOUT_TIME : 5000) : WOW_TIMEOUT_TIME);
     }
   };
 
